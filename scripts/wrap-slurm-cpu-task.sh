@@ -3,4 +3,4 @@
 #SBATCH --cpus-per-task 5
 #SBATCH --mem 16g
 
-sbatch --partition=hydra $1
+sbatch --partition=hydra $1 mode=sbatch
