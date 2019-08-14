@@ -11,6 +11,10 @@ wget https://files.ifi.uzh.ch/cl/archiv/2019/clcontra/opus_robustness_data.tar.x
 
 tar -xvf $data/opus_robustness_data.tar.xz -C $data
 
+mv $data/opus_robustness_data/* $data/
+
+rm -r $data/opus_robustness_data
+
 # sizes
 echo "Sizes of corpora:"
 
