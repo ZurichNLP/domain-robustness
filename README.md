@@ -27,3 +27,29 @@ To download data that is already prepared, run
 To preprocess training, development and test data, run
 
     ./scripts/preprocess_data.sh
+
+### Train baseline model
+
+To train a baseline model on S3IT, prepare as follows:
+
+Activate the virtualenv if not done yet:
+
+    source venvs/sockeye3/bin/activate
+
+Load modules:
+
+    module load volta cuda/9.1
+    
+Then submit a job to SLURM:
+
+    sbatch scripts/training/train_baseline.sh
+
+Check the status with
+
+    squeue
+
+### Train a reconstruction model
+
+Prepare in the same way as for the baseline, then submit the job:
+
+    sbatch scripts/training/train_reconstruction.sh

@@ -37,7 +37,7 @@ for domain in all it koran law medical subtitles; do
 
     # clean length and ratio of train (only train!)
 
-    $MOSES/training/clean-corpus-n.perl $data/train.tokenized $src $trg $data/train.tokenized.clean 1 100
+    $MOSES/training/clean-corpus-n.perl $data/train.tokenized $src $trg $data/train.tokenized.clean 1 80
 
     # learn truecase model on train (learn one model for each language)
 
@@ -75,8 +75,8 @@ for domain in all it koran law medical subtitles; do
       cat $data/$corpus.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.tag.$trg
     done
 
-    # concatenate final training data for reconstruction models
-    for corpus in train dev test; do
+    # concatenate final training data for reconstruction models (only for train and dev)
+    for corpus in train dev; do
       cat $data/$corpus.tag.$src $data/$corpus.tag.$trg > $data/$corpus.reconstruction.$src
       cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.reconstruction.$trg
     done
