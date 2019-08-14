@@ -82,8 +82,8 @@ for domain in all it koran law medical subtitles; do
 
     # concatenate final training data for reconstruction models (only for train and dev)
     for corpus in train dev; do
-      cat $data/$corpus.tag.$src $data/$corpus.tag.$trg > $data/$corpus.reconstruction.$src
-      cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.reconstruction.$trg
+      cat $data/$corpus.tag.$src $data/$corpus.tag.$trg > $data/$corpus.multilingual.$src
+      cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.multilingual.$trg
     done
 
 done
@@ -100,11 +100,17 @@ for domain in all it koran law medical subtitles; do
 
     for model in all it koran law medical subtitles; do
       if [[ $domain != $model ]]; then
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/test.tokenized.$src > $data/test_unknown_domain/test.truecased.$src
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/test.truecased.$trg
+
+        echo "Preprocessing test unknown domain; test data: $domain, preprocessing models from: $model"
+
+        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$src < $data/test.tokenized.$src > $data/test_unknown_domain/test.truecased.$src
+        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/test.truecased.$trg
 
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$src --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$src > $data/test_unknown_domain/test.bpe.$src
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$trg > $data/test_unknown_domain/test.bpe.$trg
+
+        cat $data/test_unknown_domain/test.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/test.tag.$src
+        cat $data/test_unknown_domain/test.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/test.tag.$trg
       fi
     done
 done
@@ -117,8 +123,12 @@ for domain in all it koran law medical subtitles; do
       echo "corpus: "$corpus
       wc -l $data/$domain/$corpus.bpe.$src $data/$domain/$corpus.bpe.$trg
       wc -l $data/$domain/$corpus.tag.$src $data/$domain/$corpus.tag.$trg
-      wc -l $data/$domain/$corpus.reconstruction.$src $data/$domain/$corpus.reconstruction.$trg
+      wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
     done
+
+    echo "corpus: test_unknown_domain"
+    wc -l $data/$domain/test_unknown_domain/test.bpe.$src $data/$domain/test_unknown_domain/test.bpe.$trg
+    wc -l $data/$domain/test_unknown_domain/test.tag.$src $data/$domain/test_unknown_domain/test.tag.$trg
 done
 
 # sanity checks
