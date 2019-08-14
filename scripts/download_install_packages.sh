@@ -11,7 +11,7 @@ echo "Make sure this script is executed AFTER you have activated a virtualenv"
 # install Sockeye
 
 # CUDA version on instance
-CUDA_VERSION=100
+CUDA_VERSION=91
 
 ## Method A: install from PyPi
 
