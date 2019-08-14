@@ -1,9 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --qos=vesta
 #SBATCH --time=168:00:00
 #SBATCH --gres gpu:Tesla-V100:4
 #SBATCH --cpus-per-task 5
 #SBATCH --mem 50g
+
+module load volta cuda/9.1
 
 scripts=`dirname "$0"`
 base=$scripts/..

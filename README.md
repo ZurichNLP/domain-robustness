@@ -30,15 +30,9 @@ To preprocess training, development and test data, run
 
 ### Train baseline model
 
-To train a baseline model on S3IT, prepare as follows:
-
-Activate the virtualenv if not done yet:
+To train a baseline model on S3IT, activate the virtualenv if not done yet:
 
     source venvs/sockeye3/bin/activate
-
-Load modules:
-
-    module load volta cuda/9.1
     
 Then submit a job to SLURM:
 
@@ -50,14 +44,15 @@ Check the status with
 
 ### Train a multilingual baseline model
 
-Prepare in the same way as for the baseline, then submit:
+Submit as a job:
 
     sbatch scripts/training/train_multilingual.sh
 
 ### Train a reconstruction model
 
-Prepare in the same way as for the baseline, then submit the job:
+Submit as a job:
 
     sbatch scripts/training/train_reconstruction.sh
 
-The reconstruction model is initialized with the multilingual baseline model. This means that the multilingual baseline model must be trained before the reconstruction model.
+The reconstruction model is initialized with the multilingual baseline model.
+This means that the multilingual baseline model must be trained before the reconstruction model.
