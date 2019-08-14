@@ -21,3 +21,9 @@ Download and install required software:
 To download data that is already prepared, run
 
     ./scripts/download_data.sh
+
+### Preprocess data
+
+To preprocess training, development and test data, run
+
+    ./scripts/preprocess_data.sh
