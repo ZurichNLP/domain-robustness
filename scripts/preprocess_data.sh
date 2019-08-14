@@ -46,32 +46,32 @@ for domain in all it koran law medical subtitles; do
 
     # learn truecase model on train (learn one model for each language)
 
-    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$src -model $base/shared_models/truecase-model.$src
-    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$trg -model $base/shared_models/truecase-model.$trg
+    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$src -model $base/shared_models/truecase-model.$domain.$src
+    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$trg -model $base/shared_models/truecase-model.$domain.$trg
 
     # apply truecase model to train, test and dev
 
     for corpus in train; do
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$src < $data/$corpus.tokenized.clean.$src > $data/$corpus.truecased.$src
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$trg < $data/$corpus.tokenized.clean.$trg > $data/$corpus.truecased.$trg
+      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/$corpus.tokenized.clean.$src > $data/$corpus.truecased.$src
+      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/$corpus.tokenized.clean.$trg > $data/$corpus.truecased.$trg
     done
 
     for corpus in dev test; do
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$src < $data/$corpus.tokenized.$src > $data/$corpus.truecased.$src
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$trg < $data/$corpus.tokenized.$trg > $data/$corpus.truecased.$trg
+      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/$corpus.tokenized.$src > $data/$corpus.truecased.$src
+      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/$corpus.tokenized.$trg > $data/$corpus.truecased.$trg
     done
 
     # learn BPE model on train (concatenate both languages)
 
     subword-nmt learn-joint-bpe-and-vocab -i $data/train.truecased.$src $data/train.truecased.$trg \
-      --write-vocabulary $base/shared_models/vocab.$src $base/shared_models/vocab.$trg \
-      -s $bpe_num_operations -o $base/shared_models/$src$trg.bpe
+      --write-vocabulary $base/shared_models/vocab.$domain.$src $base/shared_models/vocab.$domain.$trg \
+      -s $bpe_num_operations -o $base/shared_models/$src$trg.$domain.bpe
 
     # apply BPE model to train, test and dev
 
     for corpus in train dev test; do
-      subword-nmt apply-bpe -c $base/shared_models/$src$trg.bpe --vocabulary $base/shared_models/vocab.$src --vocabulary-threshold $bpe_vocab_threshold < $data/$corpus.truecased.$src > $data/$corpus.bpe.$src
-      subword-nmt apply-bpe -c $base/shared_models/$src$trg.bpe --vocabulary $base/shared_models/vocab.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/$corpus.truecased.$trg > $data/$corpus.bpe.$trg
+      subword-nmt apply-bpe -c $base/shared_models/$src$trg.$domain.bpe --vocabulary $base/shared_models/vocab.$domain.$src --vocabulary-threshold $bpe_vocab_threshold < $data/$corpus.truecased.$src > $data/$corpus.bpe.$src
+      subword-nmt apply-bpe -c $base/shared_models/$src$trg.$domain.bpe --vocabulary $base/shared_models/vocab.$domain.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/$corpus.truecased.$trg > $data/$corpus.bpe.$trg
     done
 
     # create a version of BPE files with a language tags on both sides for reconstruction models
@@ -86,6 +86,27 @@ for domain in all it koran law medical subtitles; do
       cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.reconstruction.$trg
     done
 
+done
+
+# more realistic conditions for out-of-domain test sets:
+# assume there is no training data for truecasing and BPE models;
+# apply the models learned on different data
+
+for domain in all it koran law medical subtitles; do
+    echo "domain: $domain"
+    data=$base/data/$domain
+
+    mkdir -p $data/test_unknown_domain
+
+    for model in all it koran law medical subtitles; do
+      if [[ $domain != $model ]]; then
+        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/test.tokenized.$src > $data/test_unknown_domain/test.truecased.$src
+        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/test.truecased.$trg
+
+        subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$src --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$src > $data/test_unknown_domain/test.bpe.$src
+        subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$trg > $data/test_unknown_domain/test.bpe.$trg
+      fi
+    done
 done
 
 data=$base/data

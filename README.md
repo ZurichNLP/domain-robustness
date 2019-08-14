@@ -28,6 +28,12 @@ To preprocess training, development and test data, run
 
     ./scripts/preprocess_data.sh
 
+Alternatively, to submit preprocessing as a SLURM job, run
+
+    ./scripts/wrap-slurm-cpu-task.sh ./scripts/preprocess_data.sh
+
+Most other CPU jobs can also be run by `wrap-slurm-cpu-task.sh`.
+
 ### Train baseline model
 
 To train a baseline model on S3IT, activate the virtualenv if not done yet:
@@ -40,7 +46,7 @@ Then submit a job to SLURM:
 
 Check the status with
 
-    squeue
+    squeue | grep [your username]
 
 ### Train a multilingual baseline model
 
