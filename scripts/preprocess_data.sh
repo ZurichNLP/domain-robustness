@@ -90,6 +90,8 @@ for domain in all it koran law medical subtitles; do
     for corpus in train dev test; do
       echo "corpus: "$corpus
       wc -l $data/$domain/$corpus.bpe.$src $data/$domain/$corpus.bpe.$trg
+      wc -l $data/$domain/$corpus.tag.$src $data/$domain/$corpus.tag.$trg
+      wc -l $data/$domain/$corpus.reconstruction.$src $data/$domain/$corpus.reconstruction.$trg
     done
 done
 
