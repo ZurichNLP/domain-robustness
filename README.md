@@ -48,8 +48,16 @@ Check the status with
 
     squeue
 
+### Train a multilingual baseline model
+
+Prepare in the same way as for the baseline, then submit:
+
+    sbatch scripts/training/train_multilingual.sh
+
 ### Train a reconstruction model
 
 Prepare in the same way as for the baseline, then submit the job:
 
     sbatch scripts/training/train_reconstruction.sh
+
+The reconstruction model is initialized with the multilingual baseline model. This means that the multilingual baseline model must be trained before the reconstruction model.

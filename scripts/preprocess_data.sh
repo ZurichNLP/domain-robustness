@@ -19,7 +19,7 @@ bpe_vocab_threshold=10
 
 for domain in all it koran law medical subtitles; do
     echo "domain: $domain"
-    data=$data/$domain
+    data=$base/data/$domain
 
     # normalize train, dev and test
 
