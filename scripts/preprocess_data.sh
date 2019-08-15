@@ -29,8 +29,8 @@ for domain in all it koran law medical subtitles; do
     # normalize train, dev and test
 
     for corpus in train dev test; do
-      cat $data/$corpus.$src | perl $MOSES/tokenizer/remove-non-printing-char.perl | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$src
-      cat $data/$corpus.$trg | perl $MOSES/tokenizer/remove-non-printing-char.perl | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$trg
+      cat $data/$corpus.$src | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$src
+      cat $data/$corpus.$trg | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$trg
     done
 
     # tokenize train, dev and test
