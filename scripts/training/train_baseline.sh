@@ -5,16 +5,19 @@
 #SBATCH --cpus-per-task 5
 #SBATCH --mem 50g
 
-module load volta cuda/9.1
-
-scripts=`dirname "$0"`
-base=$scripts/..
-
 echo $CUDA_VISIBLE_DEVICES
 echo "Done reading visible devices."
 
 export MXNET_ENABLE_GPU_P2P=0
 echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
+
+# work around slurm placing scripts in var folder
+if [[ $1 == "mode=sbatch" ]]; then
+  base=/net/cephfs/home/mathmu/scratch/domain-robustness
+else
+  script_dir=`dirname "$0"`
+  base=$script_dir/..
+fi;
 
 data=$base/data
 models=$base/models
