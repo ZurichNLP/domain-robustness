@@ -29,8 +29,8 @@ for domain in all it koran law medical subtitles; do
     # normalize train, dev and test
 
     for corpus in train dev test; do
-      cat $data/$corpus.$src | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$src
-      cat $data/$corpus.$trg | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$trg
+      cat $data/$corpus.$src | perl $MOSES/tokenizer/remove-non-printing-char.perl | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$src
+      cat $data/$corpus.$trg | perl $MOSES/tokenizer/remove-non-printing-char.perl | perl $MOSES/tokenizer/normalize-punctuation.perl > $data/$corpus.normalized.$trg
     done
 
     # tokenize train, dev and test
@@ -123,7 +123,11 @@ for domain in all it koran law medical subtitles; do
       echo "corpus: "$corpus
       wc -l $data/$domain/$corpus.bpe.$src $data/$domain/$corpus.bpe.$trg
       wc -l $data/$domain/$corpus.tag.$src $data/$domain/$corpus.tag.$trg
-      wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
+
+      # there is no multilingual test data
+      if [[ $corpus != "test" ]]; then
+        wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
+      fi
     done
 
     echo "corpus: test_unknown_domain"
