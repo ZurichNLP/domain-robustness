@@ -23,16 +23,18 @@ lockdir=$base/lockdir
 mkdir -p $models
 mkdir -p $lockdir
 
-model_name=baseline
+model_name=multilingual
+
+mkdir -p $models/$model_name
 
 src=de
 trg=en
 
-train_source=$data/medical/train.bpe.$src
-train_target=$data/medical/train.bpe.$trg
+train_source=$data/medical/train.multilingual.$src
+train_target=$data/medical/train.multilingual.$trg
 
-dev_source=$data/medical/dev.bpe.$src
-dev_target=$data/medical/dev.bpe.$trg
+dev_source=$data/medical/dev.multilingual.$src
+dev_target=$data/medical/dev.multilingual.$trg
 
 # actual training command
 
@@ -56,7 +58,7 @@ python -m sockeye.train \
 --rnn-dropout-states .2:.2 \
 --embed-dropout .2:.2 \
 --layer-normalization \
---num-layers 1:1 \
+--num-layers 2:2 \
 --rnn-residual-connections \
 --max-seq-len 80:80 \
 --weight-tying \
