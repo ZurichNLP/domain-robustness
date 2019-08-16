@@ -54,7 +54,7 @@ python -m sockeye.train \
 --output $models/$model_name \
 --seed 1 \
 --batch-type word \
---batch-size 8192 \
+--batch-size 4096 \
 --device-ids 0 1 2 \
 --decode-and-evaluate-device-id 3 \
 --encoder rnn \
