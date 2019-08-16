@@ -89,8 +89,8 @@ python -m sockeye.train \
 --params $models/$init_model_name \
 --allow-missing-params \
 --allow-extra-params \
---source-vocab $models/$init_model_name/vocab.json \
---target-vocab $models/$init_model_name/vocab.json \
+--source-vocab $models/$init_model_name/vocab.src.0.json \
+--target-vocab $models/$init_model_name/vocab.trg.0.json \
 --reconstruction bilingual \
 --reconstruction-loss-weight 0.5 \
 --instantiate-hidden st-softmax \
