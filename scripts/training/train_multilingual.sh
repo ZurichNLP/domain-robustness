@@ -80,4 +80,4 @@ python -m sockeye.train \
 --rnn-attention-type mlp \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
---lock-dir $lockdir
+--disable-device-locking
