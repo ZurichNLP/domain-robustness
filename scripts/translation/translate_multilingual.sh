@@ -46,7 +46,7 @@ for domain in it koran law medical subtitles; do
 
     # remove target language tag
 
-    cat $translations/$model_name/test.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --tag "<2$trg>" > $translations/$model_name/test.bpe.$model_name.$domain.$trg
+    cat $translations/$model_name/test.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --tag "<2$src>" > $translations/$model_name/test.bpe.$model_name.$domain.$trg
 
     # undo BPE
 
