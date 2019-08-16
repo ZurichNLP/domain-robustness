@@ -50,8 +50,8 @@ python -m sockeye.train \
 --seed 1 \
 --batch-type word \
 --batch-size 8192 \
---device-ids -3 \
---decode-and-evaluate-device-id -1 \
+--device-ids 0 1 2 \
+--decode-and-evaluate-device-id 3 \
 --encoder rnn \
 --decoder rnn \
 --rnn-cell-type lstm \
@@ -79,4 +79,4 @@ python -m sockeye.train \
 --rnn-attention-type mlp \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
---lock-dir $lockdir
+--disable-device-locking
