@@ -4,6 +4,9 @@ tools
 models
 data
 .idea
+translations
+bleu
+slurm*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
