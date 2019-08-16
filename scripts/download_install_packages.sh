@@ -26,6 +26,9 @@ git clone https://github.com/ZurichNLP/sockeye $tools/sockeye
 
 pip install --no-deps -r $tools/sockeye/requirements/requirements.gpu-cu${CUDA_VERSION}.txt $tools/sockeye
 
+# https://github.com/awslabs/sockeye/issues/693
+pip install --upgrade numpy==1.16.1
+
 pip install matplotlib mxboard
 
 # install BPE library

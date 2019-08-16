@@ -30,9 +30,18 @@ To preprocess training, development and test data, run
 
 Alternatively, to submit preprocessing as a SLURM job, run
 
-    ./scripts/wrap-slurm-cpu-task.sh ./scripts/preprocess_data.sh
+    ./scripts/wrap-slurm-cpu-task.sh scripts/preprocess_data.sh
 
 Most other CPU jobs can also be run by `wrap-slurm-cpu-task.sh`.
+
+### Preprocess test data in an out-of-domain setting
+
+To emulate out-of-domain, preprocess a test corpus without a truecasing and BPE
+model that corresponds to the domain. For instance, preprocess `medical` data with `law` models.
+
+For all permutations, run
+
+    ./scripts/wrap-slurm-cpu-task.sh scripts/preprocess_out_of_domain_test_data.sh
 
 ### Train baseline model
 

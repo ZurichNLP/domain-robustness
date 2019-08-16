@@ -88,32 +88,7 @@ for domain in all it koran law medical subtitles; do
 
 done
 
-# more realistic conditions for out-of-domain test sets:
-# assume there is no training data for truecasing and BPE models;
-# apply the models learned on different data
-
-for domain in all it koran law medical subtitles; do
-    echo "domain: $domain"
-    data=$base/data/$domain
-
-    mkdir -p $data/test_unknown_domain
-
-    for model in all it koran law medical subtitles; do
-      if [[ $domain != $model ]]; then
-
-        echo "Preprocessing test unknown domain; test data: $domain, preprocessing models from: $model"
-
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$src < $data/test.tokenized.$src > $data/test_unknown_domain/test.truecased.$src
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/test.truecased.$trg
-
-        subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$src --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$src > $data/test_unknown_domain/test.bpe.$src
-        subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/test.truecased.$trg > $data/test_unknown_domain/test.bpe.$trg
-
-        cat $data/test_unknown_domain/test.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/test.tag.$src
-        cat $data/test_unknown_domain/test.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/test.tag.$trg
-      fi
-    done
-done
+# . $scripts/preprocess_out_of_domain_test_data.sh
 
 data=$base/data
 
@@ -129,10 +104,6 @@ for domain in all it koran law medical subtitles; do
         wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
       fi
     done
-
-    echo "corpus: test_unknown_domain"
-    wc -l $data/$domain/test_unknown_domain/test.bpe.$src $data/$domain/test_unknown_domain/test.bpe.$trg
-    wc -l $data/$domain/test_unknown_domain/test.tag.$src $data/$domain/test_unknown_domain/test.tag.$trg
 done
 
 # sanity checks
