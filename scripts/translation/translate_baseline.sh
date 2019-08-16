@@ -15,7 +15,7 @@ translations=$base/translations
 mkdir -p $translations
 
 model_name=baseline
-mkdir -p $translations/model_name
+mkdir -p $translations/$model_name
 
 src=de
 trg=en
@@ -45,14 +45,14 @@ for domain in it koran law medical subtitles; do
 
     # undo BPE
 
-    cat $translations/test.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $translations/test.truecased.$model_name.$domain.$trg
+    cat $translations/$model_name/test.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $translations/$model_name/test.truecased.$model_name.$domain.$trg
 
     # undo truecasing
 
-    cat $translations/test.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $translations/test.tokenized.$model_name.$domain.$trg
+    cat $translations/$model_name/test.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $translations/$model_name/test.tokenized.$model_name.$domain.$trg
 
     # undo tokenization
 
-    cat $translations/test.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $translations/test.$model_name.$domain.$trg
+    cat $translations/$model_name/test.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $translations/$model_name/test.$model_name.$domain.$trg
 
 done
