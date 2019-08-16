@@ -41,7 +41,8 @@ for domain in it koran law medical subtitles; do
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
-            --batch-size 100
+            --batch-size 100 \
+            --disable-device-locking
 
     # undo BPE
 
