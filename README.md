@@ -36,29 +36,33 @@ Most other CPU jobs can also be run by `wrap-slurm-cpu-task.sh`.
 
 ### Train baseline model
 
-To train a baseline model on S3IT, activate the virtualenv if not done yet:
+To train the baseline model, run
 
-    source venvs/sockeye3/bin/activate
-    
-Then submit a job to SLURM:
+    ./scripts/training/train_multilingual.sh
 
-    sbatch scripts/training/train_baseline.sh
+Alternatively, to submit it as a SLURM job on S3IT:
+
+    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_multilingual.sh
 
 Check the status with
 
     squeue | grep [your username]
 
+Cancel the job with
+
+    scancel [job id]
+
 ### Train a multilingual baseline model
 
 Submit as a job:
 
-    sbatch scripts/training/train_multilingual.sh
+    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_multilingual.sh
 
 ### Train a reconstruction model
 
 Submit as a job:
 
-    sbatch scripts/training/train_reconstruction.sh
+    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_reconstruction.sh
 
-The reconstruction model is initialized with the multilingual baseline model.
+The reconstruction model is initialized with the multilingual baseline model, then fine-tuned.
 This means that the multilingual baseline model must be trained before the reconstruction model.
