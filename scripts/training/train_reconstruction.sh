@@ -86,7 +86,7 @@ python -m sockeye.train \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
 --disable-device-locking \
---params $models/$init_model_name \
+--params $models/$init_model_name/params.best \
 --allow-missing-params \
 --allow-extra-params \
 --source-vocab $models/$init_model_name/vocab.src.0.json \
