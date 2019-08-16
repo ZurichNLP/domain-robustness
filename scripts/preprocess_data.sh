@@ -16,7 +16,6 @@ scripts=$base/scripts
 src=de
 trg=en
 
-# cloned from https://github.com/bricksdont/moses-scripts
 MOSES=$base/tools/moses-scripts/scripts
 
 bpe_num_operations=32000
