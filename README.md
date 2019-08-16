@@ -43,6 +43,8 @@ For all permutations, run
 
     ./scripts/wrap-slurm-cpu-task.sh scripts/preprocess_out_of_domain_test_data.sh
 
+## Training
+
 ### Train baseline model
 
 To train the baseline model, run
@@ -51,7 +53,7 @@ To train the baseline model, run
 
 Alternatively, to submit it as a SLURM job on S3IT:
 
-    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_multilingual.sh
+    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_multilingual.sh
 
 Check the status with
 
@@ -65,13 +67,27 @@ Cancel the job with
 
 Submit as a job:
 
-    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_multilingual.sh
+    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_multilingual.sh
 
 ### Train a reconstruction model
 
 Submit as a job:
 
-    ./scripts/wrap-slurm-gpu-task.sh scripts/training/train_reconstruction.sh
+    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_reconstruction.sh
 
 The reconstruction model is initialized with the multilingual baseline model, then fine-tuned.
 This means that the multilingual baseline model must be trained before the reconstruction model.
+
+## Translation
+
+Translate with a trained model as follows:
+
+    ./scripts/wrap-slurm-gpu-translation-task.sh scripts/translation/translate_baseline.sh
+
+Similar commands for other models.
+
+## Evaluation
+
+To evaluate with sacrebleu, run
+
+    ./scripts/evaluation/evaluate_baseline.sh
