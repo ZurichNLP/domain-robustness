@@ -25,10 +25,10 @@ mkdir -p $models/$model_name
 src=de
 trg=en
 
-train_source=$data/medical/train.multilingual.$src
-train_target=$data/medical/train.multilingual.$trg
+train_source=$data/law/train.multilingual.$src
+train_target=$data/law/train.multilingual.$trg
 
-dev_source=$data/medical/dev.multilingual.$src
-dev_target=$data/medical/dev.multilingual.$trg
+dev_source=$data/law/dev.multilingual.$src
+dev_target=$data/law/dev.multilingual.$trg
 
 . $scripts/training/train_transformer_reconstruction_generic.sh

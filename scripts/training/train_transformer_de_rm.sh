@@ -21,10 +21,10 @@ model_name=transformer
 
 mkdir -p $models/$model_name
 
-train_source=$data/medical/train.bpe.$src
-train_target=$data/medical/train.bpe.$trg
+train_source=$data/law/train.bpe.$src
+train_target=$data/law/train.bpe.$trg
 
-dev_source=$data/medical/dev.bpe.$src
-dev_target=$data/medical/dev.bpe.$trg
+dev_source=$data/law/dev.bpe.$src
+dev_target=$data/law/dev.bpe.$trg
 
 . $scripts/training/train_transformer_generic.sh
