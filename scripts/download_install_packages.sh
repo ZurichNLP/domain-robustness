@@ -42,3 +42,7 @@ pip install sacrebleu
 # install Moses scripts for preprocessing
 
 git clone https://github.com/bricksdont/moses-scripts $tools/moses-scripts
+
+# install sentencepiece for subword regularization
+
+pip install sentencepiece
