@@ -5,41 +5,15 @@
 #SBATCH --cpus-per-task 5
 #SBATCH --mem 50g
 
+# THIS MODEL:
+# - bilingual reconstruction from translations (not HIDDEN states)
+# - fine-tuned from multilingual baseline
+
 echo $CUDA_VISIBLE_DEVICES
 echo "Done reading visible devices."
 
 export MXNET_ENABLE_GPU_P2P=0
 echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
-
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
-else
-  script_dir=`dirname "$0"`
-  base=$script_dir/../..
-fi;
-
-data=$base/data
-models=$base/models
-lockdir=$base/lockdir
-
-mkdir -p $models
-mkdir -p $lockdir
-
-model_name=baseline
-
-mkdir -p $models/$model_name
-
-src=de
-trg=en
-
-train_source=$data/medical/train.bpe.$src
-train_target=$data/medical/train.bpe.$trg
-
-dev_source=$data/medical/dev.bpe.$src
-dev_target=$data/medical/dev.bpe.$trg
-
-# actual training command
 
 python -m sockeye.train \
 -s $train_source \
@@ -56,6 +30,7 @@ python -m sockeye.train \
 --decoder rnn \
 --rnn-cell-type lstm \
 --rnn-num-hidden 512 \
+--rnn-decoder-hidden-dropout 0.2 \
 --rnn-dropout-inputs .2:.2 \
 --rnn-dropout-states .2:.2 \
 --embed-dropout .2:.2 \
@@ -68,7 +43,7 @@ python -m sockeye.train \
 --num-embed 512:512 \
 --num-words 50000:50000 \
 --optimizer adam \
---initial-learning-rate 0.001 \
+--initial-learning-rate 0.0001 \
 --learning-rate-reduce-num-not-improved 4 \
 --checkpoint-frequency 1000 \
 --keep-last-params 30 \
@@ -79,4 +54,14 @@ python -m sockeye.train \
 --rnn-attention-type mlp \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
---disable-device-locking
+--disable-device-locking \
+--params $models/$init_model_name/params.best \
+--allow-missing-params \
+--allow-extra-params \
+--source-vocab $models/$init_model_name/vocab.src.0.json \
+--target-vocab $models/$init_model_name/vocab.trg.0.json \
+--reconstruction bilingual \
+--reconstruction-loss-weight 0.5 \
+--instantiate-hidden st-softmax \
+--softmax-temperature 2 \
+--gumbel-noise-scale 1.0

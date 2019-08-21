@@ -11,36 +11,6 @@ echo "Done reading visible devices."
 export MXNET_ENABLE_GPU_P2P=0
 echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
-else
-  script_dir=`dirname "$0"`
-  base=$script_dir/../..
-fi;
-
-data=$base/data
-models=$base/models
-lockdir=$base/lockdir
-
-mkdir -p $models
-mkdir -p $lockdir
-
-model_name=multilingual
-
-mkdir -p $models/$model_name
-
-src=de
-trg=en
-
-train_source=$data/medical/train.multilingual.$src
-train_target=$data/medical/train.multilingual.$trg
-
-dev_source=$data/medical/dev.multilingual.$src
-dev_target=$data/medical/dev.multilingual.$trg
-
-# actual training command
-
 python -m sockeye.train \
 -s $train_source \
 -t $train_target \
@@ -56,7 +26,6 @@ python -m sockeye.train \
 --decoder rnn \
 --rnn-cell-type lstm \
 --rnn-num-hidden 512 \
---rnn-decoder-hidden-dropout 0.2 \
 --rnn-dropout-inputs .2:.2 \
 --rnn-dropout-states .2:.2 \
 --embed-dropout .2:.2 \
