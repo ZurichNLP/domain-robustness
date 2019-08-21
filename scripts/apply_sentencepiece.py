@@ -17,8 +17,9 @@ def parse_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--model", type=str, help="Path where model file is stored.", required=True)
-    parser.add_argument("--nbest-size", type=int, help="Size of nbest list for piece sampling.", required=True, default=64)
-    parser.add_argument("--alpha", type=float, help="Sampling alpha parameter.", required=True, default=0.1)
+    parser.add_argument("--nbest-size", type=int, help="Size of nbest list for piece sampling.", default=64)
+    parser.add_argument("--alpha", type=float, help="Sampling alpha parameter.", default=0.1)
+    parser.add_argument("--output-format", type=str, help="Whether to sample or output most likely segmentation.", required=True, choices=["sample", "nbest"])
 
     args = parser.parse_args()
 
@@ -38,7 +39,13 @@ def main():
     for line in sys.stdin:
         line = line.strip()
 
-        pieces = sp.SampleEncodeAsPieces(input=line, nbest_size=args.nbest_size, alpha=args.alpha)
+        if args.output_format == "sample":
+            pieces = sp.SampleEncodeAsPieces(input=line, nbest_size=args.nbest_size, alpha=args.alpha)
+        elif args.output_format == "nbest":
+            pieces = sp.NBestEncodeAsPieces(input=line, nbest_size=args.nbest_size)
+        else:
+            logging.error("Unknown output format for sentencepiece.")
+            sys.exit(0)
 
         pieces_line = " ".join(pieces)
         print(pieces_line)
