@@ -3,21 +3,16 @@
 script_dir=`dirname "$0"`
 base=$script_dir/../..
 scripts=$base/scripts
+models=$base/models
 
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_de_rm.sh
+# currently, there is only one source language
+src=de
 
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_multilingual_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_multilingual_de_rm.sh
+for trg in en rm; do
+  for model_name in rnn rnn_multilingual rnn_reconstruction transformer transformer_multilingual transformer_reconstruction; do
 
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_reconstruction_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_rnn_reconstruction_de_rm.sh
-
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_de_rm.sh
-
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_multilingual_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_multilingual_de_rm.sh
-
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_reconstruction_de_en.sh
-$scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_transformer_reconstruction_de_rm.sh
+    if [[ -d $models/$src-$trg/model_name ]]; then
+      $scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_${model_name}${src}_${trg}.sh
+    fi
+  done
+done
