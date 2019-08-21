@@ -22,7 +22,7 @@ mv $subdata/opus_robustness_data/* $subdata/
 rm -r $subdata/opus_robustness_data
 
 # sizes
-echo "Sizes of corpora:"
+echo "Sizes of de-en corpora:"
 
 for domain in all it koran law medical subtitles; do
     for corpus in train dev test; do
@@ -48,7 +48,7 @@ rm $subdata/monolingual $subdata/parallel $subdata/scripts $subdata/README.md $s
 tar -xzvf $subdata/preprocessed.tar.gz -C $subdata
 
 # sizes
-echo "Sizes of corpora:"
+echo "Sizes of de-rm corpora:"
 
 for domain in all law blogs; do
     if [[ $domain != blogs ]]; then

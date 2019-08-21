@@ -1,33 +1,14 @@
 #! /bin/bash
 
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
-else
-  script_dir=`dirname "$0"`
-  base=$script_dir/..
-fi;
-
-mkdir -p $base/shared_models
-
-data=$base/data
-scripts=$base/scripts
-
-src=de
-trg=en
-
-MOSES=$base/tools/moses-scripts/scripts
-
-bpe_vocab_threshold=10
-
+# do not invoke this script directly, but one of scripts/preprocessing/preprocess_{de_en,de_rm}.sh
 
 # more realistic conditions for out-of-domain test sets:
 # assume there is no training data for truecasing and BPE models;
 # apply the models learned on different data
 
-for domain in all it koran law medical subtitles; do
+for domain in $domains; do
     echo "domain: $domain"
-    data=$base/data/$domain
+    data=$base/data/$src-$trg/$domain
 
     mkdir -p $data/test_unknown_domain
 
@@ -50,11 +31,11 @@ for domain in all it koran law medical subtitles; do
     done
 done
 
-data=$base/data
+data=$base/data/$src-$trg
 
 # file sizes
-for domain in all it koran law medical subtitles; do
-    for model in all it koran law medical subtitles; do
+for domain in $domains; do
+    for model in $domains; do
       if [[ $domain != $model ]]; then
 
         echo "test data from: $domain, models from: $model"

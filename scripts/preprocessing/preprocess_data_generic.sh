@@ -1,29 +1,10 @@
 #! /bin/bash
 
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
-else
-  script_dir=`dirname "$0"`
-  base=$script_dir/..
-fi;
+# do not invoke this script directly, but one of scripts/preprocessing/preprocess_{de_en,de_rm}.sh
 
-mkdir -p $base/shared_models
-
-data=$base/data
-scripts=$base/scripts
-
-src=de
-trg=en
-
-MOSES=$base/tools/moses-scripts/scripts
-
-bpe_num_operations=32000
-bpe_vocab_threshold=10
-
-for domain in all it koran law medical subtitles; do
+for domain in $domains; do
     echo "domain: $domain"
-    data=$base/data/$domain
+    data=$base/data/$src-$trg/$domain
 
     # normalize train, dev and test
 
@@ -87,12 +68,10 @@ for domain in all it koran law medical subtitles; do
 
 done
 
-# . $scripts/preprocess_out_of_domain_test_data.sh
-
-data=$base/data
+data=$base/data/$src-$trg
 
 # file sizes
-for domain in all it koran law medical subtitles; do
+for domain in $domains; do
     for corpus in train dev test; do
       echo "corpus: "$corpus
       wc -l $data/$domain/$corpus.bpe.$src $data/$domain/$corpus.bpe.$trg
