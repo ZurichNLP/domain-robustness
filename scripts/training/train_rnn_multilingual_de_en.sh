@@ -27,4 +27,4 @@ train_target=$data/medical/train.multilingual.$trg
 dev_source=$data/medical/dev.multilingual.$src
 dev_target=$data/medical/dev.multilingual.$trg
 
-. $scripts/training/train_rnn_multilingual_generic.sh
+. $scripts/training/train_rnn_generic.sh

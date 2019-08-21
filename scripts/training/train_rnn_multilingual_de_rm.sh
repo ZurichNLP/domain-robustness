@@ -27,4 +27,4 @@ train_target=$data/law/train.multilingual.$trg
 dev_source=$data/law/dev.multilingual.$src
 dev_target=$data/law/dev.multilingual.$trg
 
-. $scripts/training/train_rnn_multilingual_generic.sh
+. $scripts/training/train_rnn_generic.sh

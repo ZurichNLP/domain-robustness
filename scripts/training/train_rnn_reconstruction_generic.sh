@@ -30,7 +30,6 @@ python -m sockeye.train \
 --decoder rnn \
 --rnn-cell-type lstm \
 --rnn-num-hidden 512 \
---rnn-decoder-hidden-dropout 0.2 \
 --rnn-dropout-inputs .2:.2 \
 --rnn-dropout-states .2:.2 \
 --embed-dropout .2:.2 \

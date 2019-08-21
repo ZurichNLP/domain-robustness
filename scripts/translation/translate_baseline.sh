@@ -26,7 +26,9 @@ in_domain=medical
 
 num_threads=10
 
-for domain in it koran law medical subtitles; do
+domains="it koran law medical subtitles"
+
+for domain in $domains; do
 
     if [[ $domain != $in_domain ]]; then
       data=$base/data/$domain/test_unknown_domain/$in_domain
