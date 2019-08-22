@@ -66,6 +66,10 @@ for domain in $domains; do
       cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.multilingual.$trg
     done
 
+    # train sentencepiece model
+    cat $data/$corpus.truecased.$src $data/$corpus.truecased.$trg > $data/$corpus.truecased.both
+    python $scripts/train_sentencepiece.py --model-prefix $shared_models/$src$trg.$domain.sentencepiece --input $data/$corpus.truecased.both --vocab-size $sentencepiece_vocab_size
+
 done
 
 data=$base/data/$src-$trg

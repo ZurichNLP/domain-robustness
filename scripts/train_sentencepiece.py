@@ -41,9 +41,9 @@ def main():
                   "--bos_id=%d" % BOS_ID,
                   "--eos_id=%d" % EOS_ID]
 
-    traing_args_str = " ".join(train_args)
+    train_args_str = " ".join(train_args)
 
-    spm.SentencePieceTrainer.Train(traing_args_str)
+    spm.SentencePieceTrainer.Train(train_args_str)
 
 
 if __name__ == '__main__':

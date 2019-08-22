@@ -6,12 +6,6 @@ import logging
 
 import sentencepiece as spm
 
-# assuming standard Sockeye vocab files
-PAD_ID = 0
-UNK_ID = 1
-BOS_ID = 2
-EOS_ID = 3
-
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -19,7 +13,7 @@ def parse_args():
     parser.add_argument("--model", type=str, help="Path where model file is stored.", required=True)
     parser.add_argument("--nbest-size", type=int, help="Size of nbest list for piece sampling.", default=64)
     parser.add_argument("--alpha", type=float, help="Sampling alpha parameter.", default=0.1)
-    parser.add_argument("--output-format", type=str, help="Whether to sample or output most likely segmentation.", required=True, choices=["sample", "nbest"])
+    parser.add_argument("--output-format", type=str, help="Whether to sample ('sample') or output most likely segmentation ('nbest').", required=True, choices=["sample", "nbest"])
 
     args = parser.parse_args()
 

@@ -22,6 +22,7 @@ MOSES=$base/tools/moses-scripts/scripts
 
 bpe_num_operations=32000
 bpe_vocab_threshold=10
+sentencepiece_vocab_size=29218
 
 . $scripts/preprocessing/preprocess_data_generic.sh
 . $scripts/preprocessing/preprocess_out_of_domain_test_data_generic.sh
