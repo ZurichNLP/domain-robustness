@@ -51,13 +51,9 @@ python -m sockeye.train \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
 --disable-device-locking \
---params $models/$init_model_name/params.best \
---allow-missing-params \
---allow-extra-params \
---source-vocab $models/$init_model_name/vocab.src.0.json \
---target-vocab $models/$init_model_name/vocab.trg.0.json \
---reconstruction bilingual \
---reconstruction-loss-weight 0.5 \
---instantiate-hidden st-softmax \
---softmax-temperature 2 \
---gumbel-noise-scale 1.0
+--sentencepiece \
+--sentencepiece-nbest 64 \
+--sentencepiece-alpha 0.1 \
+--sentencepiece-model $sentencepiece_model \
+--source-vocab $source_vocab \
+--target-vocab $target_vocab

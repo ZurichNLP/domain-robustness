@@ -48,6 +48,6 @@ python -m sockeye.train \
 --decode-and-evaluate 2000 \
 --max-num-checkpoint-not-improved 10 \
 --min-num-epochs 0 \
--gradient-clipping-type abs \
+--gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
 --disable-device-locking

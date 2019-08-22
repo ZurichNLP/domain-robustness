@@ -75,7 +75,7 @@ for domain in $domains; do
 
     # convert sentencepiece vocab
 
-    cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $src$trg.$domain.sentencepiece.sockeye.vocab
+    cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
 
 done
 
