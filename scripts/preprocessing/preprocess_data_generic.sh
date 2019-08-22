@@ -55,20 +55,27 @@ for domain in $domains; do
     done
 
     # create a version of BPE files with a language tags on both sides for reconstruction models
+
     for corpus in train dev test; do
       cat $data/$corpus.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.tag.$src
       cat $data/$corpus.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.tag.$trg
     done
 
     # concatenate final training data for reconstruction models (only for train and dev)
+
     for corpus in train dev; do
       cat $data/$corpus.tag.$src $data/$corpus.tag.$trg > $data/$corpus.multilingual.$src
       cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.multilingual.$trg
     done
 
     # train sentencepiece model
+
     cat $data/$corpus.truecased.$src $data/$corpus.truecased.$trg > $data/$corpus.truecased.both
     python $scripts/train_sentencepiece.py --model-prefix $shared_models/$src$trg.$domain.sentencepiece --input $data/$corpus.truecased.both --vocab-size $sentencepiece_vocab_size
+
+    # convert sentencepiece vocab
+
+    cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $src$trg.$domain.sentencepiece.sockeye.vocab
 
 done
 
