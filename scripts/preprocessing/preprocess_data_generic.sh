@@ -70,8 +70,8 @@ for domain in $domains; do
 
     # train sentencepiece model
 
-    cat $data/$corpus.truecased.$src $data/$corpus.truecased.$trg > $data/$corpus.truecased.both
-    python $scripts/train_sentencepiece.py --model-prefix $shared_models/$src$trg.$domain.sentencepiece --input $data/$corpus.truecased.both --vocab-size $sentencepiece_vocab_size
+    cat $data/$corpus.truecased.$src $data/train.truecased.$trg > $data/train.truecased.both
+    python $scripts/train_sentencepiece.py --model-prefix $shared_models/$src$trg.$domain.sentencepiece --input $data/train.truecased.both --vocab-size $sentencepiece_vocab_size
 
     # convert sentencepiece vocab
 

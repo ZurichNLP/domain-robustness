@@ -8,17 +8,20 @@ else
   base=$script_dir/../..
 fi;
 
-data=$base/data
+src=de
+trg=en
+
+data=$base/data/$src-$trg
 scripts=$base/scripts
 
 translations=$base/translations
 mkdir -p $translations
 
+translations=$base/translations/$src-$trg
+mkdir -p $translations
+
 model_name=baseline
 mkdir -p $translations/$model_name
-
-src=de
-trg=en
 
 MOSES=$base/tools/moses-scripts/scripts
 
@@ -31,9 +34,9 @@ domains="it koran law medical subtitles"
 for domain in $domains; do
 
     if [[ $domain != $in_domain ]]; then
-      data=$base/data/$domain/test_unknown_domain/$in_domain
+      data=$data/$domain/test_unknown_domain/$in_domain
     else
-      data=$base/data/$domain
+      data=$data/$domain
     fi
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \

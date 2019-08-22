@@ -12,6 +12,7 @@ mkdir -p $base/shared_models
 
 data=$base/data
 scripts=$base/scripts
+shared_models=$base/shared_models
 
 src=de
 trg=en
