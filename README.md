@@ -24,36 +24,32 @@ To download data that is already prepared, run
 
 ### Preprocess data
 
-To preprocess training, development and test data, run
+To preprocess all data sets, run
 
-    ./scripts/preprocess_data.sh
+    ./scripts/preprocess_all.sh
 
-Alternatively, to submit preprocessing as a SLURM job, run
-
-    ./scripts/wrap-slurm-cpu-task.sh scripts/preprocess_data.sh
-
-Most other CPU jobs can also be run by `wrap-slurm-cpu-task.sh`.
-
-### Preprocess test data in an out-of-domain setting
-
-To emulate out-of-domain, preprocess a test corpus without a truecasing and BPE
-model that corresponds to the domain. For instance, preprocess `medical` data with `law` models.
-
-For all permutations, run
-
-    ./scripts/wrap-slurm-cpu-task.sh scripts/preprocess_out_of_domain_test_data.sh
+To process only one specific language pair, run one of the specific scripts in `scripts/preprocessing`.
+CPU jobs like that can also be wrapped by `wrap-slurm-cpu-task.sh`.
 
 ## Training
 
-### Train baseline model
+### Train all models
 
-To train the baseline model, run
+To train all models in all experiments, run
 
-    ./scripts/training/train_multilingual.sh
+    ./scripts/training/train_all.sh
+
+This will submit individual model trainings as SLURM jobs.
+
+### Train an individual model
+
+To train an individual model, select a script from `scripts/training`, then run
+
+    ./scripts/training/train_transformer_multilingual_de_en.sh
 
 Alternatively, to submit it as a SLURM job on S3IT:
 
-    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_multilingual.sh
+    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_transformer_multilingual_de_en.sh
 
 Check the status with
 
@@ -62,21 +58,6 @@ Check the status with
 Cancel the job with
 
     scancel [job id]
-
-### Train a multilingual baseline model
-
-Submit as a job:
-
-    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_multilingual.sh
-
-### Train a reconstruction model
-
-Submit as a job:
-
-    ./scripts/wrap-slurm-gpu-training-task.sh scripts/training/train_reconstruction.sh
-
-The reconstruction model is initialized with the multilingual baseline model, then fine-tuned.
-This means that the multilingual baseline model must be trained before the reconstruction model.
 
 ## Translation
 

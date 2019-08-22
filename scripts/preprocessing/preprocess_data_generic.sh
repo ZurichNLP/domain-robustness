@@ -93,6 +93,9 @@ for domain in $domains; do
         wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
       fi
     done
+
+    wc -l $shared_models/$src$trg.$domain.sentencepiece.vocab $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
+
 done
 
 # sanity checks
