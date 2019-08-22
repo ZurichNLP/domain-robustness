@@ -70,12 +70,19 @@ for domain in $domains; do
 
     # train sentencepiece model
 
-    cat $data/$corpus.truecased.$src $data/train.truecased.$trg > $data/train.truecased.both
+    cat $data/train.truecased.$src $data/train.truecased.$trg > $data/train.truecased.both
     python $scripts/train_sentencepiece.py --model-prefix $shared_models/$src$trg.$domain.sentencepiece --input $data/train.truecased.both --vocab-size $sentencepiece_vocab_size
 
     # convert sentencepiece vocab
 
     cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
+
+    # apply deterministic sentencepiece segmentation to truecased test data
+
+    cat $data/test.truecased.$src | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
+      --nbest-size 1 --output-format nbest > $data/test.pieces.$src
+    cat $data/test.truecased.$trg | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
+      --nbest-size 1 --output-format nbest > $data/test.pieces.$trg
 
 done
 
