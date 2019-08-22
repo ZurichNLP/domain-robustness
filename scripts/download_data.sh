@@ -43,9 +43,11 @@ mkdir -p $subdata
 git clone https://github.com/a-rios/RumantschCorpora $subdata
 (cd $subdata && git checkout preprocessed)
 
-rm $subdata/monolingual $subdata/parallel $subdata/scripts $subdata/README.md $subdata/.gitignore
-
 tar -xzvf $subdata/preprocessed.tar.gz -C $subdata
+
+mv $subdata/preprocessed/* $subdata
+
+rm -r $subdata/monolingual $subdata/parallel $subdata/scripts $subdata/README.md $subdata/.gitignore $subdata/preprocessed
 
 # sizes
 echo "Sizes of de-rm corpora:"
