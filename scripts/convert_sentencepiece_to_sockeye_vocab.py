@@ -34,8 +34,9 @@ def main():
         vocab[item] = index
 
     for item in args.add:
-        index += 1
-        vocab[item] = index
+        if item not in vocab.keys():
+            index += 1
+            vocab[item] = index
 
     json.dump(vocab, sys.stdout, ensure_ascii=False, indent=4)
 
