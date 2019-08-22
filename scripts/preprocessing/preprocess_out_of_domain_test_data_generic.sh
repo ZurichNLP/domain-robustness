@@ -27,6 +27,12 @@ for domain in $domains; do
 
         cat $data/test_unknown_domain/$model/test.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/$model/test.tag.$src
         cat $data/test_unknown_domain/$model/test.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/$model/test.tag.$trg
+
+        cat $data/test_unknown_domain/$model/test.truecased.$src | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$model.sentencepiece.model \
+          --nbest-size 1 --output-format nbest > $data/test_unknown_domain/$model/test.pieces.$src
+        cat $data/test_unknown_domain/$model/test.truecased.$trg | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$model.sentencepiece.model \
+          --nbest-size 1 --output-format nbest > $data/test_unknown_domain/$model/test.pieces.$trg
+
       fi
     done
 done
