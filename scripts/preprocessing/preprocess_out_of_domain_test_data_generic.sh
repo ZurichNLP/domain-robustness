@@ -12,7 +12,7 @@ for domain in $domains; do
 
     mkdir -p $data/test_unknown_domain
 
-    for model in all it koran law medical subtitles; do
+    for model in $domains; do
       if [[ $domain != $model ]]; then
 
         mkdir -p $data/test_unknown_domain/$model
@@ -25,13 +25,16 @@ for domain in $domains; do
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$src --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/$model/test.truecased.$src > $data/test_unknown_domain/$model/test.bpe.$src
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/$model/test.truecased.$trg > $data/test_unknown_domain/$model/test.bpe.$trg
 
-        cat $data/test_unknown_domain/$model/test.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/$model/test.tag.$src
-        cat $data/test_unknown_domain/$model/test.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/$model/test.tag.$trg
+        cat $data/test_unknown_domain/$model/test.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/$model/test.bpe.tag.$src
+        cat $data/test_unknown_domain/$model/test.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/$model/test.bpe.tag.$trg
 
         cat $data/test_unknown_domain/$model/test.truecased.$src | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$model.sentencepiece.model \
           --nbest-size 1 --output-format nbest > $data/test_unknown_domain/$model/test.pieces.$src
         cat $data/test_unknown_domain/$model/test.truecased.$trg | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$model.sentencepiece.model \
           --nbest-size 1 --output-format nbest > $data/test_unknown_domain/$model/test.pieces.$trg
+
+        cat $data/test_unknown_domain/$model/test.pieces.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/test_unknown_domain/$model/test.pieces.tag.$src
+        cat $data/test_unknown_domain/$model/test.pieces.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/test_unknown_domain/$model/test.pieces.tag.$trg
 
       fi
     done
@@ -45,8 +48,7 @@ for domain in $domains; do
       if [[ $domain != $model ]]; then
 
         echo "test data from: $domain, models from: $model"
-        wc -l $data/$domain/test_unknown_domain/$model/test.bpe.$src $data/$domain/test_unknown_domain/$model/test.bpe.$trg
-        wc -l $data/$domain/test_unknown_domain/$model/test.tag.$src $data/$domain/test_unknown_domain/$model/test.tag.$trg
+        wc -l $data/$domain/test_unknown_domain/$model/*
       fi
     done
 done
