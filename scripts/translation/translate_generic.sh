@@ -8,9 +8,6 @@ else
   base=$script_dir/../..
 fi;
 
-src=de
-trg=en
-
 data=$base/data/$src-$trg
 scripts=$base/scripts
 
@@ -20,7 +17,6 @@ mkdir -p $translations
 translations=$base/translations/$src-$trg
 mkdir -p $translations
 
-model_name=baseline
 mkdir -p $translations/$model_name
 
 MOSES=$base/tools/moses-scripts/scripts
@@ -28,8 +24,6 @@ MOSES=$base/tools/moses-scripts/scripts
 in_domain=medical
 
 num_threads=10
-
-domains="it koran law medical subtitles"
 
 for domain in $domains; do
 
