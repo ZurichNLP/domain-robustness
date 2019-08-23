@@ -57,8 +57,8 @@ mv $subdata/blogs/dev.rm $subdata/blogs/train.rm
 head -n 2000 $subdata/blogs/train.de > $subdata/blogs/dev.de
 head -n 2000 $subdata/blogs/train.rm > $subdata/blogs/dev.rm
 
-sed -i -e '1,2000d' < $subdata/blogs/train.de
-sed -i -e '1,2000d' < $subdata/blogs/train.rm
+sed -i -e '1,2000d' $subdata/blogs/train.de
+sed -i -e '1,2000d' $subdata/blogs/train.rm
 
 # sizes
 echo "Sizes of de-rm corpora:"
