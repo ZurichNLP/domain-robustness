@@ -36,7 +36,7 @@ def main():
         if args.output_format == "sample":
             pieces = sp.SampleEncodeAsPieces(input=line, nbest_size=args.nbest_size, alpha=args.alpha)
         elif args.output_format == "nbest":
-            pieces = sp.NBestEncodeAsPieces(input=line, nbest_size=args.nbest_size)
+            pieces = sp.NBestEncodeAsPieces(input=line, nbest_size=1)[0]
         else:
             logging.error("Unknown output format for sentencepiece.")
             sys.exit(0)

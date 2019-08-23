@@ -103,8 +103,8 @@ for domain in $domains; do
     # add tag to best pieces segmentation of data for multilingual models WITH SENTENCEPIECE AND DISTILLATION
 
     for corpus in train dev test; do
-      cat $data/$corpus.pieces.$src | $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.pieces.tag.$src
-      cat $data/$corpus.pieces.$trg | $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.pieces.tag.$trg
+      cat $data/$corpus.pieces.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.pieces.tag.$src
+      cat $data/$corpus.pieces.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.pieces.tag.$trg
     done
 
     # concatenate final training data for multilingual models WITH SENTENCEPIECE AND DISTILLATION (only for train and dev)
