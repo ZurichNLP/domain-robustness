@@ -11,12 +11,10 @@ fi;
 scripts=$base/scripts
 
 src=de
-trg=en
+trg=rm
 
 model_name=transformer_multilingual
 
-in_domain=medical
+domains="law blogs"
 
-domains="it koran law medical subtitles"
-
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/evaluation/evaluate_generic.sh

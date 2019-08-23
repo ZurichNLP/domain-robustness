@@ -15,8 +15,6 @@ trg=en
 
 model_name=transformer_multilingual
 
-in_domain=medical
-
 domains="it koran law medical subtitles"
 
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/evaluation/evaluate_generic.sh

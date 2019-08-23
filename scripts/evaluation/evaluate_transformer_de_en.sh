@@ -13,10 +13,8 @@ scripts=$base/scripts
 src=de
 trg=en
 
-model_name=transformer_multilingual
-
-in_domain=medical
+model_name=transformer
 
 domains="it koran law medical subtitles"
 
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/evaluation/evaluate_generic.sh
