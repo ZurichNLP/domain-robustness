@@ -51,25 +51,20 @@ rm -r $subdata/monolingual $subdata/parallel $subdata/scripts $subdata/README.md
 
 # take some dev data as standin for training data in blogs domain
 
-mv $subdata/dev.de $subdata/train.de
-mv $subdata/dev.rm $subdata/train.rm
+mv $subdata/blogs/dev.de $subdata/blogs/train.de
+mv $subdata/blogs/dev.rm $subdata/blogs/train.rm
 
-head -n 2000 $subdata/train.de > $subdata/dev.de
-head -n 2000 $subdata/train.rm > $subdata/dev.rm
+head -n 2000 $subdata/blogs/train.de > $subdata/blogs/dev.de
+head -n 2000 $subdata/blogs/train.rm > $subdata/blogs/dev.rm
 
-sed -i -e '1,2000d' < $subdata/train.de
-sed -i -e '1,2000d' < $subdata/train.rm
+sed -i -e '1,2000d' < $subdata/blogs/train.de
+sed -i -e '1,2000d' < $subdata/blogs/train.rm
 
 # sizes
 echo "Sizes of de-rm corpora:"
 
 for domain in all law blogs; do
-    if [[ $domain != blogs ]]; then
-	    echo "corpus: "$domain/train
-	    wc -l $subdata/$domain/train.de $subdata/$domain/train.rm
-    fi
-
-    for corpus in dev test; do
+    for corpus in train dev test; do
       echo "corpus: "$domain/$corpus
       wc -l $subdata/$domain/$corpus.de $subdata/$domain/$corpus.rm
     done
