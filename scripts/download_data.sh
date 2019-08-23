@@ -49,6 +49,17 @@ mv $subdata/preprocessed/* $subdata
 
 rm -r $subdata/monolingual $subdata/parallel $subdata/scripts $subdata/README.md $subdata/.gitignore $subdata/preprocessed
 
+# take some dev data as standin for training data in blogs domain
+
+mv $subdata/dev.de $subdata/train.de
+mv $subdata/dev.rm $subdata/train.rm
+
+head -n 2000 $subdata/train.de > $subdata/dev.de
+head -n 2000 $subdata/train.rm > $subdata/dev.rm
+
+sed -i -e '1,2000d' < $subdata/train.de
+sed -i -e '1,2000d' < $subdata/train.rm
+
 # sizes
 echo "Sizes of de-rm corpora:"
 
