@@ -54,18 +54,32 @@ for domain in $domains; do
       subword-nmt apply-bpe -c $base/shared_models/$src$trg.$domain.bpe --vocabulary $base/shared_models/vocab.$domain.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/$corpus.truecased.$trg > $data/$corpus.bpe.$trg
     done
 
-    # create a version of BPE files with a language tags on both sides for reconstruction models
+    # create a version of BPE files with a language tags on both sides for multilingual models
 
     for corpus in train dev test; do
-      cat $data/$corpus.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.tag.$src
-      cat $data/$corpus.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.tag.$trg
+      cat $data/$corpus.bpe.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.bpe.tag.$src
+      cat $data/$corpus.bpe.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.bpe.tag.$trg
     done
 
-    # concatenate final training data for reconstruction models (only for train and dev)
+    # concatenate final training data for multilingual models (only for train and dev)
 
     for corpus in train dev; do
-      cat $data/$corpus.tag.$src $data/$corpus.tag.$trg > $data/$corpus.multilingual.$src
-      cat $data/$corpus.tag.$trg $data/$corpus.tag.$src > $data/$corpus.multilingual.$trg
+      cat $data/$corpus.bpe.tag.$src $data/$corpus.bpe.tag.$trg > $data/$corpus.bpe.multilingual.$src
+      cat $data/$corpus.bpe.tag.$trg $data/$corpus.bpe.tag.$src > $data/$corpus.bpe.multilingual.$trg
+    done
+
+    # create a version of truecased files with a language tags on both sides for multilingual models WITH SENTENCEPIECE
+
+    for corpus in train dev test; do
+      cat $data/$corpus.truecased.$src | python $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.truecased.tag.$src
+      cat $data/$corpus.truecased.$trg | python $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.truecased.tag.$trg
+    done
+
+    # concatenate final training data for multilingual models WITH SENTENCEPIECE (only for train and dev)
+
+    for corpus in train dev; do
+      cat $data/$corpus.truecased.tag.$src $data/$corpus.truecased.tag.$trg > $data/$corpus.truecased.multilingual.$src
+      cat $data/$corpus.truecased.tag.$trg $data/$corpus.truecased.tag.$src > $data/$corpus.truecased.multilingual.$trg
     done
 
     # train sentencepiece model
@@ -77,12 +91,28 @@ for domain in $domains; do
 
     cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
 
-    # apply deterministic sentencepiece segmentation to truecased test data
+    # apply deterministic (best) sentencepiece segmentation to truecased train, dev and test data
 
-    cat $data/test.truecased.$src | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
-      --nbest-size 1 --output-format nbest > $data/test.pieces.$src
-    cat $data/test.truecased.$trg | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
-      --nbest-size 1 --output-format nbest > $data/test.pieces.$trg
+    for corpus in train dev test; do
+      cat $data/$corpus.truecased.$src | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
+        --nbest-size 1 --output-format nbest > $data/$corpus.pieces.$src
+      cat $data/$corpus.truecased.$trg | python $scripts/apply_sentencepiece.py --model $shared_models/$src$trg.$domain.sentencepiece.model \
+        --nbest-size 1 --output-format nbest > $data/$corpus.pieces.$trg
+    done
+
+    # add tag to best pieces segmentation of data for multilingual models WITH SENTENCEPIECE AND DISTILLATION
+
+    for corpus in train dev test; do
+      cat $data/$corpus.pieces.$src | $scripts/add_tag_to_lines.py --tag "<2$trg>" > $data/$corpus.pieces.tag.$src
+      cat $data/$corpus.pieces.$trg | $scripts/add_tag_to_lines.py --tag "<2$src>" > $data/$corpus.pieces.tag.$trg
+    done
+
+    # concatenate final training data for multilingual models WITH SENTENCEPIECE AND DISTILLATION (only for train and dev)
+
+    for corpus in train dev; do
+      cat $data/$corpus.pieces.tag.$src $data/$corpus.truecased.tag.$trg > $data/$corpus.pieces.multilingual.$src
+      cat $data/$corpus.pieces.tag.$trg $data/$corpus.truecased.tag.$src > $data/$corpus.pieces.multilingual.$trg
+    done
 
 done
 
@@ -92,13 +122,7 @@ data=$base/data/$src-$trg
 for domain in $domains; do
     for corpus in train dev test; do
       echo "corpus: "$corpus
-      wc -l $data/$domain/$corpus.bpe.$src $data/$domain/$corpus.bpe.$trg
-      wc -l $data/$domain/$corpus.tag.$src $data/$domain/$corpus.tag.$trg
-
-      # there is no multilingual test data
-      if [[ $corpus != "test" ]]; then
-        wc -l $data/$domain/$corpus.multilingual.$src $data/$domain/$corpus.multilingual.$trg
-      fi
+      wc -l $data/$domain/$corpus.*
     done
 
     wc -l $shared_models/$src$trg.$domain.sentencepiece.vocab $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
