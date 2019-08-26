@@ -18,8 +18,8 @@ in_domain=medical
 num_threads=10
 
 OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
-            -i $data/train.bpe.$src \
-            -o $distillations/$model_name/train.bpe.$model_name.$in_domain.$trg \
+            -i $data/train.pieces.$src \
+            -o $distillations/$model_name/train.pieces.$model_name.$in_domain.$trg \
             -m $base/models/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
@@ -27,4 +27,8 @@ OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             --batch-size 100 \
             --disable-device-locking
 
-# no postprocessing needed for BPE distillation
+# remove pieces because sentencepiece training in Sockeye expects truecased input
+
+cat $distillations/$model_name/train.pieces.$model_name.$in_domain.$trg | \
+  python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > \
+  $distillations/$model_name/train.truecased.$model_name.$in_domain.$trg
