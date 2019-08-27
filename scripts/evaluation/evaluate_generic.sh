@@ -11,8 +11,6 @@ mkdir $bleu
 
 mkdir -p $bleu/$model_name
 
-domains="it koran law medical subtitles"
-
 for domain in $domains; do
 
     data=$base/data/$domain
