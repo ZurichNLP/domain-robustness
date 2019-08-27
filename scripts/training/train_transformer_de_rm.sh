@@ -27,4 +27,9 @@ train_target=$data/law/train.bpe.$trg
 dev_source=$data/law/dev.bpe.$src
 dev_target=$data/law/dev.bpe.$trg
 
+num_layers="3:3"
+transformer_model_size="256"
+transformer_attention_heads="4"
+transformer_feed_forward_num_hidden="512"
+
 . $scripts/training/train_transformer_generic.sh

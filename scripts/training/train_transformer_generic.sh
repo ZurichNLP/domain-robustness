@@ -24,10 +24,10 @@ python -m sockeye.train \
 --decode-and-evaluate-device-id 3 \
 --encoder transformer \
 --decoder transformer \
---num-layers 3:3 \
---transformer-model-size 256 \
---transformer-attention-heads 4 \
---transformer-feed-forward-num-hidden 512 \
+--num-layers $num_layers \
+--transformer-model-size $transformer_model_size \
+--transformer-attention-heads $transformer_attention_heads \
+--transformer-feed-forward-num-hidden $transformer_feed_forward_num_hidden \
 --transformer-preprocess n \
 --transformer-postprocess dr \
 --transformer-dropout-attention 0.2 \
