@@ -27,6 +27,7 @@ train_target=$data/law/train.bpe.$trg
 dev_source=$data/law/dev.bpe.$src
 dev_target=$data/law/dev.bpe.$trg
 
+num_embed="256:256"
 num_layers="3:3"
 transformer_model_size="256"
 transformer_attention_heads="4"

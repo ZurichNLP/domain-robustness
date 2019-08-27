@@ -27,6 +27,7 @@ train_target=$data/medical/train.bpe.$trg
 dev_source=$data/medical/dev.bpe.$src
 dev_target=$data/medical/dev.bpe.$trg
 
+num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
 transformer_attention_heads="8"

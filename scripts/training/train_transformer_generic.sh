@@ -37,7 +37,7 @@ python -m sockeye.train \
 --embed-dropout .2:.2 \
 --weight-tying \
 --weight-tying-type src_trg_softmax \
---num-embed 512:512 \
+--num-embed $num_embed \
 --num-words 50000:50000 \
 --optimizer adam \
 --initial-learning-rate 0.001 \
