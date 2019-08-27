@@ -13,8 +13,6 @@ mkdir -p $translations/$model_name
 
 MOSES=$base/tools/moses-scripts/scripts
 
-in_domain=medical
-
 num_threads=10
 
 for domain in $domains; do
