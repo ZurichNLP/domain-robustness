@@ -11,8 +11,6 @@ mkdir -p $distillations
 
 mkdir -p $distillations/$model_name
 
-in_domain=medical
-
 num_threads=10
 
 # translate train data
