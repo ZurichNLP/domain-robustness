@@ -27,6 +27,7 @@ train_target=$data/law/train.bpe.$trg
 dev_source=$data/law/dev.bpe.$src
 dev_target=$data/law/dev.bpe.$trg
 
+batch_size="2048"
 num_embed="256:256"
 num_layers="3:3"
 transformer_model_size="256"

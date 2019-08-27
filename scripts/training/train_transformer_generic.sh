@@ -19,7 +19,7 @@ python -m sockeye.train \
 --output $models/$model_name \
 --seed 1 \
 --batch-type word \
---batch-size 4096 \
+--batch-size $batch_size \
 --device-ids 0 1 2 \
 --decode-and-evaluate-device-id 3 \
 --encoder transformer \
