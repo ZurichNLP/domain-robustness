@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=en
 
-model_name=transformer
+model_name=transformer_big
 
 in_domain=medical
 

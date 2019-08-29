@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-model_name=transformer
+model_name=transformer_big
 
 domains="law blogs"
 
