@@ -5,6 +5,7 @@ models
 data
 .idea
 translations
+distillations
 bleu
 slurm*
 
