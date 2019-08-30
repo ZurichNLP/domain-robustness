@@ -13,7 +13,13 @@ mkdir -p $translations/$model_name
 
 MOSES=$base/tools/moses-scripts/scripts
 
-num_threads=10
+if [[ $CUDA_VISIBLE_DEVICES == "" ]]; then
+  num_threads=64
+  device_arg="--use-cpu"
+else
+  num_threads=10
+  device_arg="--device-ids 0"
+fi
 
 for domain in $domains; do
 
@@ -29,7 +35,7 @@ for domain in $domains; do
             -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
-            --device-ids 0 \
+            $device_arg \
             --batch-size 100 \
             --disable-device-locking
 
