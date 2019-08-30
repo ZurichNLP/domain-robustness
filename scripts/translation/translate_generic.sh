@@ -13,7 +13,7 @@ mkdir -p $translations/$model_name
 
 MOSES=$base/tools/moses-scripts/scripts
 
-if [[ $CUDA_VISIBLE_DEVICES == "" ]]; then
+if [[ -z "$CUDA_VISIBLE_DEVICES" ]]; then
   num_threads=64
   device_arg="--use-cpu"
 else
