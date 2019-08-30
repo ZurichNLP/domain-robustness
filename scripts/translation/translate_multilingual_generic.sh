@@ -23,6 +23,8 @@ fi
 
 for domain in $domains; do
 
+    data=$base/data/$src-$trg
+
     if [[ $domain != $in_domain ]]; then
       data=$base/data/$domain/test_unknown_domain/$in_domain
     else
