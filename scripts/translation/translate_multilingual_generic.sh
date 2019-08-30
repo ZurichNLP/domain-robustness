@@ -26,7 +26,7 @@ for domain in $domains; do
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             -i $data/test.bpe.tag.$src \
             -o $translations/$model_name/test.bpe.tag.$model_name.$domain.$trg \
-            -m $base/models/$model_name \
+            -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
