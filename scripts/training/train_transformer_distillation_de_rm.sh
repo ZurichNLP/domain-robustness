@@ -14,6 +14,7 @@ trg=rm
 data=$base/data/$src-$trg
 models=$base/models/$src-$trg
 scripts=$base/scripts
+distillations=$base/distillations/$src-$trg
 
 mkdir -p $models
 
@@ -25,9 +26,9 @@ mkdir -p $models/$model_name
 in_domain=law
 
 train_source=$data/$in_domain/train.bpe.$src
-train_target=$distillation/init_model_name/train.bpe.$init_model_name.$in_domain.$trg
+train_target=$distillations/init_model_name/train.bpe.$init_model_name.$in_domain.$trg
 
 dev_source=$data/$in_domain/dev.bpe.$src
-dev_target=$distillation/init_model_name/dev.bpe.$init_model_name.$in_domain.$trg
+dev_target=$distillations/init_model_name/dev.bpe.$init_model_name.$in_domain.$trg
 
 . $scripts/training/train_transformer_distillation_generic.sh
