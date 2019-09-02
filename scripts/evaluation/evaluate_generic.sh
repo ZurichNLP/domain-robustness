@@ -13,7 +13,7 @@ mkdir -p $bleu/$model_name
 
 for domain in $domains; do
 
-    data=$base/data/$domain
+    data=$base/data/$src-$trg/$domain
 
     # compute case-sensitive BLEU on detokenized data
 
