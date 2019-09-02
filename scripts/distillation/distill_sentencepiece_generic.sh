@@ -18,7 +18,7 @@ num_threads=10
 OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             -i $data/$in_domain/train.pieces.$src \
             -o $distillations/$model_name/train.pieces.$model_name.$in_domain.$trg \
-            -m $base/models/$model_name \
+            -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
@@ -30,7 +30,7 @@ OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
 OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             -i $data/$in_domain/dev.pieces.$src \
             -o $distillations/$model_name/dev.pieces.$model_name.$in_domain.$trg \
-            -m $base/models/$model_name \
+            -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
