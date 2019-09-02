@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-model_name=transformer_big
+model_name=transformer
 
 in_domain=law
 

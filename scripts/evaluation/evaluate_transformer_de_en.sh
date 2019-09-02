@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=en
 
-model_name=transformer_big
+model_name=transformer
 
 domains="it koran law medical subtitles"
 

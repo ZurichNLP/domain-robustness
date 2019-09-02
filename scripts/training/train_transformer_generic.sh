@@ -11,6 +11,15 @@ echo "Done reading visible devices."
 export MXNET_ENABLE_GPU_P2P=0
 echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
+# parameters are the same for all Transformer models
+
+batch_size="4096"
+num_embed="512:512"
+num_layers="6:6"
+transformer_model_size="512"
+transformer_attention_heads="8"
+transformer_feed_forward_num_hidden="2048"
+
 python -m sockeye.train \
 -s $train_source \
 -t $train_target \
