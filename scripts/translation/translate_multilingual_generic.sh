@@ -38,7 +38,7 @@ for domain in $domains; do
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             $device_arg \
-            --batch-size 100 \
+            --batch-size 64 \
             --disable-device-locking
 
     # remove target language tag

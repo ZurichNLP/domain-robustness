@@ -22,7 +22,7 @@ OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
-            --batch-size 100 \
+            --batch-size 64 \
             --disable-device-locking
 
 # translate dev data
@@ -34,7 +34,7 @@ OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
             --device-ids 0 \
-            --batch-size 100 \
+            --batch-size 64 \
             --disable-device-locking
 
 # no postprocessing needed for multilingual distillation
