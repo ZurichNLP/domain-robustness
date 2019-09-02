@@ -7,7 +7,7 @@ bleu=$base/bleu
 mkdir -p $bleu
 
 bleu=$base/bleu/$src-$trg
-mkdir $bleu
+mkdir -p $bleu
 
 mkdir -p $bleu/$model_name
 
