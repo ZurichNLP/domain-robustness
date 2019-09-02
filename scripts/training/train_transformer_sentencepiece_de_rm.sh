@@ -25,8 +25,8 @@ mkdir -p $models/$model_name
 train_source=$data/law/train.truecased.$src
 train_target=$data/law/train.truecased.$trg
 
-dev_source=$data/law/dev.truecased.$src
-dev_target=$data/law/dev.truecased.$trg
+dev_source=$data/law/dev.pieces.$src
+dev_target=$data/law/dev.pieces.$trg
 
 source_vocab=$shared_models/$src$trg.law.sentencepiece.sockeye.vocab
 target_vocab=$shared_models/$src$trg.law.sentencepiece.sockeye.vocab

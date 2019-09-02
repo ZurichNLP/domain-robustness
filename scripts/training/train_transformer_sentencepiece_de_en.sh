@@ -25,8 +25,8 @@ mkdir -p $models/$model_name
 train_source=$data/medical/train.truecased.$src
 train_target=$data/medical/train.truecased.$trg
 
-dev_source=$data/medical/dev.truecased.$src
-dev_target=$data/medical/dev.truecased.$trg
+dev_source=$data/medical/dev.pieces.$src
+dev_target=$data/medical/dev.pieces.$trg
 
 source_vocab=$shared_models/$src$trg.medical.sentencepiece.sockeye.vocab
 target_vocab=$shared_models/$src$trg.medical.sentencepiece.sockeye.vocab
