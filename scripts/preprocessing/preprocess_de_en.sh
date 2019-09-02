@@ -23,6 +23,8 @@ MOSES=$base/tools/moses-scripts/scripts
 
 bpe_num_operations=32000
 bpe_vocab_threshold=10
+
+# mirror final vocab size for Sockeye BPE training
 sentencepiece_vocab_size=29218
 
 . $scripts/preprocessing/preprocess_data_generic.sh

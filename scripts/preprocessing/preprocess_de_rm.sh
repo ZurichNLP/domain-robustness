@@ -24,8 +24,8 @@ MOSES=$base/tools/moses-scripts/scripts
 bpe_num_operations=16000
 bpe_vocab_threshold=10
 
-# TODO: determine if lower for baselines!
-sentencepiece_vocab_size=16000
+# mirror final vocab size for Sockeye BPE training
+sentencepiece_vocab_size=15254
 
 . $scripts/preprocessing/preprocess_data_generic.sh
 . $scripts/preprocessing/preprocess_out_of_domain_test_data_generic.sh
