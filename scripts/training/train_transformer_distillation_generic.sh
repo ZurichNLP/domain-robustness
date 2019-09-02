@@ -11,6 +11,15 @@ echo "Done reading visible devices."
 export MXNET_ENABLE_GPU_P2P=0
 echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
+# parameters are the same for all Transformer models
+
+batch_size="4096"
+num_embed="512:512"
+num_layers="6:6"
+transformer_model_size="512"
+transformer_attention_heads="8"
+transformer_feed_forward_num_hidden="2048"
+
 python -m sockeye.train \
 -s $train_source \
 -t $train_target \
@@ -19,15 +28,15 @@ python -m sockeye.train \
 --output $models/$model_name \
 --seed 1 \
 --batch-type word \
---batch-size 4096 \
+--batch-size $batch_size \
 --device-ids 0 1 2 \
 --decode-and-evaluate-device-id 3 \
 --encoder transformer \
 --decoder transformer \
---num-layers 3:3 \
---transformer-model-size 256 \
---transformer-attention-heads 4 \
---transformer-feed-forward-num-hidden 512 \
+--num-layers $num_layers \
+--transformer-model-size $transformer_model_size \
+--transformer-attention-heads $transformer_attention_heads \
+--transformer-feed-forward-num-hidden $transformer_feed_forward_num_hidden \
 --transformer-preprocess n \
 --transformer-postprocess dr \
 --transformer-dropout-attention 0.2 \
@@ -37,7 +46,7 @@ python -m sockeye.train \
 --embed-dropout .2:.2 \
 --weight-tying \
 --weight-tying-type src_trg_softmax \
---num-embed 512:512 \
+--num-embed $num_embed \
 --num-words 50000:50000 \
 --optimizer adam \
 --initial-learning-rate 0.001 \

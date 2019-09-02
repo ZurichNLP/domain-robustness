@@ -8,6 +8,8 @@ else
   base=$script_dir/../..
 fi;
 
+scripts=$base/scripts
+
 src=de
 trg=en
 
