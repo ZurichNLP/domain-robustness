@@ -19,8 +19,8 @@ for domain in $domains; do
 
         echo "Preprocessing test unknown domain; test data: $domain, preprocessing models from: $model"
 
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$src < $data/test.tokenized.$src > $data/test_unknown_domain/$model/test.truecased.$src
-        $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$model.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/$model/test.truecased.$trg
+        $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$model.$src < $data/test.tokenized.$src > $data/test_unknown_domain/$model/test.truecased.$src
+        $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$model.$trg < $data/test.tokenized.$trg > $data/test_unknown_domain/$model/test.truecased.$trg
 
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$src --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/$model/test.truecased.$src > $data/test_unknown_domain/$model/test.bpe.$src
         subword-nmt apply-bpe -c $base/shared_models/$src$trg.$model.bpe --vocabulary $base/shared_models/vocab.$model.$trg --vocabulary-threshold $bpe_vocab_threshold < $data/test_unknown_domain/$model/test.truecased.$trg > $data/test_unknown_domain/$model/test.bpe.$trg

@@ -26,19 +26,19 @@ for domain in $domains; do
 
     # learn truecase model on train (learn one model for each language)
 
-    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$src -model $base/shared_models/truecase-model.$domain.$src
-    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$trg -model $base/shared_models/truecase-model.$domain.$trg
+    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$src -model $base/shared_models/$src$trg.truecase-model.$domain.$src
+    $MOSES/recaser/train-truecaser.perl -corpus $data/train.tokenized.clean.$trg -model $base/shared_models/$src$trg.truecase-model.$domain.$trg
 
     # apply truecase model to train, test and dev
 
     for corpus in train; do
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/$corpus.tokenized.clean.$src > $data/$corpus.truecased.$src
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/$corpus.tokenized.clean.$trg > $data/$corpus.truecased.$trg
+      $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$domain.$src < $data/$corpus.tokenized.clean.$src > $data/$corpus.truecased.$src
+      $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$domain.$trg < $data/$corpus.tokenized.clean.$trg > $data/$corpus.truecased.$trg
     done
 
     for corpus in dev test; do
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$src < $data/$corpus.tokenized.$src > $data/$corpus.truecased.$src
-      $MOSES/recaser/truecase.perl -model $base/shared_models/truecase-model.$domain.$trg < $data/$corpus.tokenized.$trg > $data/$corpus.truecased.$trg
+      $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$domain.$src < $data/$corpus.tokenized.$src > $data/$corpus.truecased.$src
+      $MOSES/recaser/truecase.perl -model $base/shared_models/$src$trg.truecase-model.$domain.$trg < $data/$corpus.tokenized.$trg > $data/$corpus.truecased.$trg
     done
 
     # learn BPE model on train (concatenate both languages)
