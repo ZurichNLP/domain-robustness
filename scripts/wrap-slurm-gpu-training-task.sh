@@ -4,4 +4,4 @@ source /net/cephfs/home/mathmu/scratch/domain-robustness/venvs/sockeye3/bin/acti
 
 module load volta cuda/9.1
 
-sbatch --qos=vesta --time=168:00:00 --gres gpu:Tesla-V100:4 --cpus-per-task 5 --mem 50g $1 mode=sbatch
+sbatch --qos=vesta --time=24:00:00 --gres gpu:Tesla-V100:2 --cpus-per-task 4 --mem 48g $1 mode=sbatch
