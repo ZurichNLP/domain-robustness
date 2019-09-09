@@ -2,7 +2,7 @@
 
 # work around slurm placing scripts in var folder
 if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
+  base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
 else
   script_dir=`dirname "$0"`
   base=$script_dir/../..
