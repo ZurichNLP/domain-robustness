@@ -14,4 +14,4 @@ module add python/3.5.1
 
 # new
 sbatch -A T2-CS037-GPU --gres=gpu:1 --nodes=1 --time=24:00:00 --cpus-per-task 3 \
-       --mem 10g $1 mode=sbatch
+       -p pascal $1 mode=sbatch
