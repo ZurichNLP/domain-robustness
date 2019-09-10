@@ -9,9 +9,9 @@ models=$base/models
 src=de
 
 for trg in en rm; do
-  for model_name in rnn rnn_multilingual rnn_reconstruction transformer transformer_multilingual transformer_reconstruction transformer_sentencepiece; do
+  for model_name in transformer transformer_multilingual transformer_sentencepiece; do
 
-    if [[ -d $models/$src-$trg/model_name ]]; then
+    if [[ ! -d $models/$src-$trg/model_name ]]; then
       $scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_${model_name}${src}_${trg}.sh
     fi
   done
