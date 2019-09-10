@@ -17,9 +17,13 @@ scripts=$base/scripts
 
 mkdir -p $models
 
-model_name=transformer_multilingual_single_gpu
+model_name=transformer_reconstruction_single_gpu
+init_model_name=transformer_multilingual_single_gpu
 
 mkdir -p $models/$model_name
+
+src=de
+trg=en
 
 train_source=$data/medical/train.bpe.multilingual.$src
 train_target=$data/medical/train.bpe.multilingual.$trg
@@ -27,4 +31,4 @@ train_target=$data/medical/train.bpe.multilingual.$trg
 dev_source=$data/medical/dev.bpe.multilingual.$src
 dev_target=$data/medical/dev.bpe.multilingual.$trg
 
-. $scripts/training/train_transformer_generic_single_gpu.sh
+. $scripts/training/train_transformer_reconstruction_generic_single_gpu.sh
