@@ -29,8 +29,8 @@ python -m sockeye.train \
 --seed 1 \
 --batch-type word \
 --batch-size $batch_size \
---device-ids 0 1 2 \
---decode-and-evaluate-device-id 3 \
+--device-ids 0 \
+--decode-and-evaluate-device-id 1 \
 --encoder transformer \
 --decoder transformer \
 --num-layers $num_layers \
