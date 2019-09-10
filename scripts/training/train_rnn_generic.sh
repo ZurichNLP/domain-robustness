@@ -19,9 +19,9 @@ python -m sockeye.train \
 --output $models/$model_name \
 --seed 1 \
 --batch-type word \
---batch-size 4096 \
---device-ids 0 1 2 \
---decode-and-evaluate-device-id 3 \
+--batch-size 512 \
+--device-ids 0 \
+--decode-and-evaluate-device-id 0 \
 --encoder rnn \
 --decoder rnn \
 --rnn-cell-type lstm \
@@ -49,4 +49,5 @@ python -m sockeye.train \
 --rnn-attention-type mlp \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
---disable-device-locking
+--disable-device-locking \
+--update-interval 8

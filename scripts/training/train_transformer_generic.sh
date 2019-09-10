@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="1024"
+batch_size="512"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
@@ -60,4 +60,4 @@ python -m sockeye.train \
 --gradient-clipping-type abs \
 --gradient-clipping-threshold 1 \
 --disable-device-locking \
---update-interval 4
+--update-interval 8

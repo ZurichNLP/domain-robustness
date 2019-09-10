@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="2048"
+batch_size="512"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
@@ -62,4 +62,5 @@ python -m sockeye.train \
 --disable-device-locking \
 --params $models/$init_model_name/params.best \
 --source-vocab $models/$init_model_name/vocab.src.0.json \
---target-vocab $models/$init_model_name/vocab.trg.0.json
+--target-vocab $models/$init_model_name/vocab.trg.0.json \
+--update-interval 8

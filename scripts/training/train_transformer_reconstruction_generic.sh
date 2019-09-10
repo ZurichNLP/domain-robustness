@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="1024"
+batch_size="512"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
@@ -70,4 +70,4 @@ python -m sockeye.train \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
 --gumbel-noise-scale 1.0 \
---update-interval 4
+--update-interval 8
