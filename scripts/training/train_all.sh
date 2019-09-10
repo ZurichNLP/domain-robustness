@@ -12,7 +12,7 @@ for trg in en rm; do
   for model_name in transformer transformer_multilingual transformer_sentencepiece; do
 
     if [[ ! -d $models/$src-$trg/model_name ]]; then
-      $scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_${model_name}${src}_${trg}.sh
+      $scripts/wrap-slurm-gpu-training-task.sh $scripts/training/train_${model_name}_${src}_${trg}.sh
     fi
   done
 done
