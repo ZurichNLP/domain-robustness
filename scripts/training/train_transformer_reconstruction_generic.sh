@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="2048"
+batch_size="1024"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
@@ -30,7 +30,7 @@ python -m sockeye.train \
 --batch-type word \
 --batch-size $batch_size \
 --device-ids 0 \
---decode-and-evaluate-device-id 1 \
+--decode-and-evaluate-device-id 0 \
 --encoder transformer \
 --decoder transformer \
 --num-layers $num_layers \
@@ -69,4 +69,5 @@ python -m sockeye.train \
 --reconstruction-loss-weight 0.5 \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
---gumbel-noise-scale 1.0
+--gumbel-noise-scale 1.0 \
+--update-interval 4
