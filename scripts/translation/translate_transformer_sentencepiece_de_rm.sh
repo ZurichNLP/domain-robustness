@@ -11,12 +11,12 @@ fi;
 scripts=$base/scripts
 
 src=de
-trg=en
+trg=rm
 
-model_name=rnn_reconstruction
+model_name=transformer_sentencepiece
 
-in_domain=medical
+in_domain=law
 
-domains="it koran law medical subtitles"
+domains="law blogs"
 
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/translation/translate_sentencepiece_generic.sh

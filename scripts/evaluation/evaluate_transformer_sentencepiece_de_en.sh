@@ -2,7 +2,7 @@
 
 # work around slurm placing scripts in var folder
 if [[ $1 == "mode=sbatch" ]]; then
-  base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
+  base=/net/cephfs/home/mathmu/scratch/domain-robustness
 else
   script_dir=`dirname "$0"`
   base=$script_dir/../..
@@ -13,10 +13,8 @@ scripts=$base/scripts
 src=de
 trg=en
 
-model_name=rnn_reconstruction
-
-in_domain=medical
+model_name=transformer_sentencepiece
 
 domains="it koran law medical subtitles"
 
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/evaluation/evaluate_generic.sh

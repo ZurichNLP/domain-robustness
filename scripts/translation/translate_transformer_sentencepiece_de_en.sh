@@ -13,10 +13,10 @@ scripts=$base/scripts
 src=de
 trg=en
 
-model_name=rnn_reconstruction
+model_name=transformer_sentencepiece
 
 in_domain=medical
 
 domains="it koran law medical subtitles"
 
-. $scripts/translation/translate_multilingual_generic.sh
+. $scripts/translation/translate_sentencepiece_generic.sh

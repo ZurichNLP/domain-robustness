@@ -1,6 +1,6 @@
 #! /bin/bash
 
-data=$base/data
+data=$base/data/$src-$trg
 scripts=$base/scripts
 
 translations=$base/translations
@@ -26,14 +26,14 @@ for domain in $domains; do
     data=$base/data/$src-$trg
 
     if [[ $domain != $in_domain ]]; then
-      data=$base/data/$domain/test_unknown_domain/$in_domain
+      data=$data/$domain/test_unknown_domain/$in_domain
     else
-      data=$base/data/$domain
+      data=$data/$domain
     fi
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
-            -i $data/test.bpe.tag.$src \
-            -o $translations/$model_name/test.bpe.tag.$model_name.$domain.$trg \
+            -i $data/test.pieces.$src \
+            -o $translations/$model_name/test.pieces.$model_name.$domain.$trg \
             -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
             --length-penalty-alpha 1.0 \
@@ -41,13 +41,9 @@ for domain in $domains; do
             --batch-size 64 \
             --disable-device-locking
 
-    # remove target language tag
+    # undo pieces
 
-    cat $translations/$model_name/test.bpe.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --tag "<2$src>" > $translations/$model_name/test.bpe.$model_name.$domain.$trg
-
-    # undo BPE
-
-    cat $translations/$model_name/test.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $translations/$model_name/test.truecased.$model_name.$domain.$trg
+    cat $translations/$model_name/test.pieces.$model_name.$domain.$trg | python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > $translations/$model_name/test.truecased.$model_name.$domain.$trg
 
     # undo truecasing
 

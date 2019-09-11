@@ -17,7 +17,7 @@ if [[ "$CUDA_VISIBLE_DEVICES" == "NoDevFiles" ]]; then
   num_threads=64
   device_arg="--use-cpu"
 else
-  num_threads=10
+  num_threads=3
   device_arg="--device-ids 0"
 fi
 
