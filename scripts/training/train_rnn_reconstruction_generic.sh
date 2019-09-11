@@ -24,8 +24,8 @@ python -m sockeye.train \
 --seed 1 \
 --batch-type word \
 --batch-size 4096 \
---device-ids 0 1 2 \
---decode-and-evaluate-device-id 3 \
+--device-ids 0 \
+--decode-and-evaluate-device-id 0 \
 --encoder rnn \
 --decoder rnn \
 --rnn-cell-type lstm \
