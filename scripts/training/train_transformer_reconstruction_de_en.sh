@@ -22,9 +22,6 @@ init_model_name=transformer_multilingual
 
 mkdir -p $models/$model_name
 
-src=de
-trg=en
-
 train_source=$data/medical/train.bpe.multilingual.$src
 train_target=$data/medical/train.bpe.multilingual.$trg
 
