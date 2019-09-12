@@ -1,6 +1,6 @@
 #! /bin/bash
 
-data=$base/data
+data=$base/data/$src-$trg
 scripts=$base/scripts
 
 translations=$base/translations
@@ -26,9 +26,9 @@ for domain in $domains; do
     data=$base/data/$src-$trg
 
     if [[ $domain != $in_domain ]]; then
-      data=$base/data/$domain/test_unknown_domain/$in_domain
+      data=$data/$domain/test_unknown_domain/$in_domain
     else
-      data=$base/data/$domain
+      data=$data/$domain
     fi
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
