@@ -12,7 +12,7 @@ src=de
 for trg in en rm; do
   for model_name in transformer transformer_multilingual transformer_sentencepiece transformer_reconstruction transformer_distillation; do
 
-    if [[ -d $translations/$src-$trg/$model_name ]]; then
+    if [[ -d $base/translations/$src-$trg/$model_name ]]; then
       echo "Executing $scripts/evaluation/evaluate_${model_name}_${src}_${trg}.sh ..."
       . $scripts/evaluation/evaluate_${model_name}_${src}_${trg}.sh
     fi
