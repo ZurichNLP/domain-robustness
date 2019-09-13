@@ -17,4 +17,4 @@ model_name=transformer_sentencepiece
 
 in_domain=medical
 
-. $scripts/distillation/distill_multilingual_sentencepiece_generic.sh
+. $scripts/distillation/distill_sentencepiece_generic.sh
