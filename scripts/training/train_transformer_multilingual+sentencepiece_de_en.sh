@@ -14,6 +14,7 @@ trg=en
 data=$base/data/$src-$trg
 models=$base/models/$src-$trg
 scripts=$base/scripts
+shared_models=$base/shared_models
 
 mkdir -p $models
 
