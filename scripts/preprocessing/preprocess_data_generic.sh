@@ -110,8 +110,8 @@ for domain in $domains; do
     # concatenate final training data for multilingual models WITH SENTENCEPIECE AND DISTILLATION (only for train and dev)
 
     for corpus in train dev; do
-      cat $data/$corpus.pieces.tag.$src $data/$corpus.truecased.tag.$trg > $data/$corpus.pieces.multilingual.$src
-      cat $data/$corpus.pieces.tag.$trg $data/$corpus.truecased.tag.$src > $data/$corpus.pieces.multilingual.$trg
+      cat $data/$corpus.pieces.tag.$src $data/$corpus.pieces.tag.$trg > $data/$corpus.pieces.multilingual.$src
+      cat $data/$corpus.pieces.tag.$trg $data/$corpus.pieces.tag.$src > $data/$corpus.pieces.multilingual.$trg
     done
 
 done
