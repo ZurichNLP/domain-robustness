@@ -6,5 +6,4 @@ base=$scripts/..
 data=$base/data
 models=$base/models
 
-rsync -a $data /home/cluster/mathmu/data/domain_robustness/
-rsync -a $models /home/cluster/mathmu/data/domain_robustness/
+rsync -avzP $models mathmu@login0.s3it.uzh.ch:/net/cephfs/home/mathmu/scratch/domain-robustness/
