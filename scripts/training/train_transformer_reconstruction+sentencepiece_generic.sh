@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="4096"
+batch_size="512"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
