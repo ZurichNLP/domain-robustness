@@ -31,7 +31,4 @@ dev_target=$data/law/dev.pieces.multilingual.$trg
 
 sentencepiece_model=$shared_models/$src$trg.law.sentencepiece.model
 
-source_vocab=$shared_models/$src$trg.law.sentencepiece.multilingual.sockeye.vocab
-target_vocab=$shared_models/$src$trg.law.sentencepiece.multilingual.sockeye.vocab
-
 . $scripts/training/train_transformer_reconstruction+sentencepiece_generic.sh

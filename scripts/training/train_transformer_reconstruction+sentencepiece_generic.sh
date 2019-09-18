@@ -64,8 +64,6 @@ python -m sockeye.train \
 --sentencepiece-nbest 64 \
 --sentencepiece-alpha 0.1 \
 --sentencepiece-model $sentencepiece_model \
---source-vocab $source_vocab \
---target-vocab $target_vocab \
 --sentencepiece-protected "<2$trg>" "<2$src>" \
 --params $models/$init_model_name/params.best \
 --allow-missing-params \
