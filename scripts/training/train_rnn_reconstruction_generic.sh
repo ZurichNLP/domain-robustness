@@ -63,4 +63,5 @@ python -m sockeye.train \
 --reconstruction-loss-weight 0.5 \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
---gumbel-noise-scale 1.0
+--gumbel-noise-scale 1.0 \
+--metrics perplexity perplexity-reconstruction

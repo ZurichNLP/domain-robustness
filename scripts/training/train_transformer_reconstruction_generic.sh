@@ -70,4 +70,5 @@ python -m sockeye.train \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
 --gumbel-noise-scale 1.0 \
---update-interval 8
+--update-interval 8 \
+--metrics perplexity perplexity-reconstruction
