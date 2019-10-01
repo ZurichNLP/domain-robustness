@@ -49,7 +49,7 @@ python -m sockeye.train \
 --num-embed $num_embed \
 --num-words 50000:50000 \
 --optimizer adam \
---initial-learning-rate 0.0001 \
+--initial-learning-rate $lr \
 --learning-rate-reduce-num-not-improved 4 \
 --checkpoint-frequency 1000 \
 --keep-last-params 30 \
