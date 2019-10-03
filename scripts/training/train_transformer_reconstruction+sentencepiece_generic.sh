@@ -71,7 +71,7 @@ python -m sockeye.train \
 --source-vocab $models/$init_model_name/vocab.src.0.json \
 --target-vocab $models/$init_model_name/vocab.trg.0.json \
 --reconstruction bilingual \
---reconstruction-loss-weight 0.5 \
+--reconstruction-loss-weight $reconstruction_loss_weight \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
 --gumbel-noise-scale 1.0 \

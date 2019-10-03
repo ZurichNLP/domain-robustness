@@ -25,6 +25,8 @@ mkdir -p $models/$model_name
 src=de
 trg=rm
 
+reconstruction_loss_weight=0.1
+
 train_source=$data/law/train.multilingual.$src
 train_target=$data/law/train.multilingual.$trg
 

@@ -31,4 +31,6 @@ dev_target=$data/law/dev.pieces.multilingual.$trg
 
 sentencepiece_model=$shared_models/$src$trg.law.sentencepiece.model
 
+reconstruction_loss_weight=0.1
+
 . $scripts/training/train_transformer_reconstruction+sentencepiece_generic.sh
