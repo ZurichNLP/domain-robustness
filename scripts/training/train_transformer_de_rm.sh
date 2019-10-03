@@ -1,11 +1,11 @@
 #! /bin/bash
 
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
-else
+# check if calling script has set $base
+if [ $# -eq 0 ]; then
   script_dir=`dirname "$0"`
   base=$script_dir/../..
+else
+  base=$1
 fi;
 
 src=de

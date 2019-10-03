@@ -8,12 +8,18 @@ mkdir -p $tools
 
 echo "Make sure this script is executed AFTER you have activated a virtualenv"
 
-module purge
-module load rhel7/default-peta4
-module load cuda/9.1
-module add python-3.6.2-gcc-5.4.0-me5fsee
-
-source $base/venvs/sockeye3/bin/activate
+if [[ `hostname` == 'login0' ]]; then
+  # S3IT
+  source /net/cephfs/home/mathmu/scratch/domain-robustness/venvs/sockeye3/bin/activate
+  module load volta cuda/9.1
+else
+  # CSD3
+  source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness/venvs/sockeye3/bin/activate
+  module purge
+  module load rhel7/default-peta4
+  module load cuda/9.1
+  module add python-3.6.2-gcc-5.4.0-me5fsee
+fi;
 
 # install Sockeye
 
