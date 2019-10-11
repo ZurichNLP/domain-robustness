@@ -16,9 +16,13 @@ fi;
 # work around slurm placing scripts in var folder
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
+  echo "Detected environment: S3IT"
+  echo "base=/net/cephfs/home/mathmu/scratch/domain-robustness"
   base=/net/cephfs/home/mathmu/scratch/domain-robustness
 elif [[ `hostname` == 'login-e-2' ]]; then
   # CSD3
+  echo "Detected environment: S3IT"
+  echo "base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness"
   base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
 else
   echo "Unknown host, cannot set 'base' variable!"
