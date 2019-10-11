@@ -31,6 +31,7 @@ dev_target=$data/medical/dev.pieces.multilingual.$trg
 
 sentencepiece_model=$shared_models/$src$trg.medical.sentencepiece.model
 
-reconstruction_loss_weight=0.1
+lr=0.00001
+reconstruction_loss_weight=0.5
 
 . $scripts/training/train_transformer_reconstruction+sentencepiece_generic.sh
