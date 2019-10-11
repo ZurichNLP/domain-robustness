@@ -14,20 +14,15 @@ else
 fi;
 
 # work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  if [[ `hostname` == 'login0' ]]; then
+if [[ `hostname` == 'login0' ]]; then
     # S3IT
-    base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce
+    base=/net/cephfs/home/mathmu/scratch/domain-robustness-reproduce
   elif [[ `hostname` == 'login-e-2' ]]; then
     # CSD3
     base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce
   else
     echo "Unknown host, cannot set 'base' variable!"
     exit
-  fi;
-else
-  script_dir=`dirname "$0"`
-  base=$script_dir/..
 fi;
 
 if [[ `hostname` == 'login0' ]]; then
