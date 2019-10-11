@@ -22,8 +22,8 @@ init_model_name=transformer_multilingual
 
 mkdir -p $models/$model_name
 
-lr=0.0001
-reconstruction_loss_weight=0.1
+lr=0.00001
+reconstruction_loss_weight=0.5
 
 train_source=$data/law/train.bpe.multilingual.$src
 train_target=$data/law/train.bpe.multilingual.$trg
