@@ -16,7 +16,7 @@ fi;
 # work around slurm placing scripts in var folder
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
-  base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
+  base=/net/cephfs/home/mathmu/scratch/domain-robustness
 elif [[ `hostname` == 'login-e-2' ]]; then
   # CSD3
   base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
