@@ -6,10 +6,16 @@
 scripts=`dirname "$0"`
 base=$scripts/..
 
-module purge
-module load rhel7/default-peta4
-module load cuda/9.1
-module add python-3.6.2-gcc-5.4.0-me5fsee
+if [[ `hostname` == 'login0' ]]; then
+  # S3IT
+  module load volta cuda/9.1
+else
+  # CSD3
+  module purge
+  module load rhel7/default-peta4
+  module load cuda/9.1
+  module add python-3.6.2-gcc-5.4.0-me5fsee
+fi;
 
 mkdir -p $base/venvs
 
