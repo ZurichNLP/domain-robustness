@@ -71,4 +71,4 @@ python -m sockeye.train \
 --softmax-temperature 2 \
 --gumbel-noise-scale 1.0 \
 --update-interval 8 \
---metrics perplexity perplexity-reconstruction
+--metrics perplexity perplexity-reconstruction $extra_args
