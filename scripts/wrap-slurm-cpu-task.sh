@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness/venvs/sockeye3/bin/activate
+source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce/venvs/sockeye3/bin/activate
 
 module purge
 module load rhel7/default-peta4

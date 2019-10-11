@@ -2,11 +2,11 @@
 
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
-  source /net/cephfs/home/mathmu/scratch/domain-robustness/venvs/sockeye3/bin/activate
+  source /net/cephfs/home/mathmu/scratch/domain-robustness-reproduce/venvs/sockeye3/bin/activate
   module load volta cuda/9.1
 else
   # CSD3
-  source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness/venvs/sockeye3/bin/activate
+  source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce/venvs/sockeye3/bin/activate
   module purge
   module load rhel7/default-peta4
   module load cuda/9.1
@@ -17,10 +17,10 @@ fi;
 if [[ $1 == "mode=sbatch" ]]; then
   if [[ `hostname` == 'login0' ]]; then
     # S3IT
-    base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
+    base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce
   elif [[ `hostname` == 'login-e-2' ]]; then
     # CSD3
-    base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness
+    base=/rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce
   else
     echo "Unknown host, cannot set 'base' variable!"
     exit
