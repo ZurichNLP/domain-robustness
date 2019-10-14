@@ -65,3 +65,7 @@ git clone https://github.com/bricksdont/moses-scripts $tools/moses-scripts
 # install sentencepiece for subword regularization
 
 pip install sentencepiece
+
+# install fairseq for language models
+
+pip install fairseq
