@@ -3,7 +3,8 @@
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
   source /net/cephfs/home/mathmu/scratch/domain-robustness-reproduce/venvs/sockeye3/bin/activate
-  module load volta cuda/9.1
+  module use /sapps/etc/modules/start/
+  module load volta cuda/9.2
 else
   # CSD3
   source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness-reproduce/venvs/sockeye3/bin/activate
