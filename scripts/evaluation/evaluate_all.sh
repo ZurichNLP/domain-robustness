@@ -10,7 +10,7 @@ translations=$base/translations
 src=de
 
 for trg in en rm; do
-  for model_name in transformer transformer_multilingual transformer_sentencepiece transformer_reconstruction transformer_distillation; do
+  for model_name in transformer transformer_multilingual transformer_multilingual+sentencepiece transformer_sentencepiece transformer_reconstruction_tinylr transformer_reconstruction+sentencepiece transformer_distillation; do
 
     if [[ -d $base/translations/$src-$trg/$model_name ]]; then
       echo "#"
