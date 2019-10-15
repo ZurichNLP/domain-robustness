@@ -11,7 +11,8 @@ echo "Make sure this script is executed AFTER you have activated a virtualenv"
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
   source /net/cephfs/home/mathmu/scratch/domain-robustness/venvs/sockeye3/bin/activate
-  module load volta cuda/9.1
+  module use /sapps/etc/modules/start/
+  module load volta cuda/9.2
 else
   # CSD3
   source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness/venvs/sockeye3/bin/activate
@@ -24,7 +25,7 @@ fi;
 # install Sockeye
 
 # CUDA version on instance
-CUDA_VERSION=91
+CUDA_VERSION=92
 
 ## Method A: install from PyPi
 
