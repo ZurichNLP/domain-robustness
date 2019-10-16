@@ -1,7 +1,5 @@
 #! /bin/bash
 
-#! /bin/bash
-
 # check if calling script has set $base
 if [ $# -eq 0 ]; then
   script_dir=`dirname "$0"`
