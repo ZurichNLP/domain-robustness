@@ -4,7 +4,7 @@
 # pip install virtualenv
 
 scripts=`dirname "$0"`
-base=$scripts/..
+base=$scripts/../..
 
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
