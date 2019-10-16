@@ -11,7 +11,7 @@ fi;
 src=de
 trg=en
 
-data=$base/data/$src-$trg
+data=$base/data
 models=$base/models/$src-$trg
 
 preprocessed_data=$data/$src-$trg/fairseq-preprocessed
