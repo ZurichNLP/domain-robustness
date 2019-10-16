@@ -6,7 +6,6 @@ base=$scripts/..
 tools=$base/tools
 mkdir -p $tools
 
-echo "Make sure this script is executed AFTER you have activated a virtualenv"
 
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
