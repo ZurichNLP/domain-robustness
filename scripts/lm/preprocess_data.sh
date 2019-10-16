@@ -8,8 +8,6 @@ else
   base=$1
 fi;
 
-mkdir -p $base/shared_models
-
 data=$base/data
 
 src=de
@@ -25,7 +23,7 @@ preprocessed_data=$data/$src-$trg/fairseq-preprocessed
 
 mkdir -p $preprocessed_data
 
-num_workers=2
+num_workers=64
 
 fairseq-preprocess \
      --only-source \
