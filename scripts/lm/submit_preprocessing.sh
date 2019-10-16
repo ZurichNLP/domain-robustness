@@ -30,4 +30,4 @@ else
   exit
 fi;
 
-sbatch --cpus-per-task=64 --time=24:00:00 --mem=16G --partition=skylake $1 $base
+sbatch --cpus-per-task=64 --time=24:00:00 --mem=16G --partition=hydra $1 $base
