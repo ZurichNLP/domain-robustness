@@ -45,3 +45,6 @@ fairseq-train --task language_modeling \
     --sample-break-mode none \
     --skip-invalid-size-inputs-valid-test \
     --ddp-backend=no_c10d
+
+# copy dict as a workaround, since fairseq looks for it in the wrong place
+cp $preprocessed_data/dict.txt $models/$model_name/
