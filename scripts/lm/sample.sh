@@ -8,4 +8,4 @@ else
   base=$1
 fi;
 
-python sample.py --model $base/models/fairseq-lm --prefix "the potentially medically important signs and symptoms"
+python $base/scripts/lm/sample.py --model $base/models/fairseq-lm --prefix "the potentially medically important signs and symptoms"
