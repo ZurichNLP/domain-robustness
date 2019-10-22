@@ -13,7 +13,7 @@ echo "MXNET_ENABLE_GPU_P2P: $MXNET_ENABLE_GPU_P2P"
 
 # parameters are the same for all Transformer models
 
-batch_size="4096"
+batch_size="512"
 num_embed="512:512"
 num_layers="6:6"
 transformer_model_size="512"
@@ -29,8 +29,8 @@ python -m sockeye.train \
 --seed 1 \
 --batch-type word \
 --batch-size $batch_size \
---device-ids 0 1 2 \
---decode-and-evaluate-device-id 3 \
+--device-ids 0 \
+--decode-and-evaluate-device-id 0 \
 --encoder transformer \
 --decoder transformer \
 --num-layers $num_layers \
@@ -49,7 +49,7 @@ python -m sockeye.train \
 --num-embed $num_embed \
 --num-words 50000:50000 \
 --optimizer adam \
---initial-learning-rate 0.0001 \
+--initial-learning-rate $lr \
 --learning-rate-reduce-num-not-improved 4 \
 --checkpoint-frequency 1000 \
 --keep-last-params 30 \
@@ -66,7 +66,9 @@ python -m sockeye.train \
 --source-vocab $models/$init_model_name/vocab.src.0.json \
 --target-vocab $models/$init_model_name/vocab.trg.0.json \
 --reconstruction bilingual \
---reconstruction-loss-weight 0.5 \
+--reconstruction-loss-weight $reconstruction_loss_weight \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
---gumbel-noise-scale 1.0
+--gumbel-noise-scale 1.0 \
+--update-interval 8 \
+--metrics perplexity perplexity-reconstruction $extra_args

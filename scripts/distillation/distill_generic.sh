@@ -11,7 +11,7 @@ mkdir -p $distillations
 
 mkdir -p $distillations/$model_name
 
-num_threads=10
+num_threads=3
 
 # translate train data
 

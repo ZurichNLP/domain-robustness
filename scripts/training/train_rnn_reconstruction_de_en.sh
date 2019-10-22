@@ -1,11 +1,11 @@
-#!/bin/bash
+#! /bin/bash
 
-# work around slurm placing scripts in var folder
-if [[ $1 == "mode=sbatch" ]]; then
-  base=/net/cephfs/home/mathmu/scratch/domain-robustness
-else
+# check if calling script has set $base
+if [ $# -eq 0 ]; then
   script_dir=`dirname "$0"`
   base=$script_dir/../..
+else
+  base=$1
 fi;
 
 src=de
@@ -24,6 +24,8 @@ mkdir -p $models/$model_name
 
 src=de
 trg=en
+
+reconstruction_loss_weight=0.1
 
 train_source=$data/medical/train.multilingual.$src
 train_target=$data/medical/train.multilingual.$trg

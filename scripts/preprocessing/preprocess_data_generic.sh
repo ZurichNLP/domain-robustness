@@ -91,6 +91,10 @@ for domain in $domains; do
 
     cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py > $shared_models/$src$trg.$domain.sentencepiece.sockeye.vocab
 
+    # convert sentencepiece vocab and add language tags for multilingual
+
+    cat $shared_models/$src$trg.$domain.sentencepiece.vocab | python $scripts/convert_sentencepiece_to_sockeye_vocab.py --add "<2$trg>" "<2$src>" > $shared_models/$src$trg.$domain.sentencepiece.multilingual.sockeye.vocab
+
     # apply deterministic (best) sentencepiece segmentation to truecased train, dev and test data
 
     for corpus in train dev test; do
@@ -110,8 +114,8 @@ for domain in $domains; do
     # concatenate final training data for multilingual models WITH SENTENCEPIECE AND DISTILLATION (only for train and dev)
 
     for corpus in train dev; do
-      cat $data/$corpus.pieces.tag.$src $data/$corpus.truecased.tag.$trg > $data/$corpus.pieces.multilingual.$src
-      cat $data/$corpus.pieces.tag.$trg $data/$corpus.truecased.tag.$src > $data/$corpus.pieces.multilingual.$trg
+      cat $data/$corpus.pieces.tag.$src $data/$corpus.pieces.tag.$trg > $data/$corpus.pieces.multilingual.$src
+      cat $data/$corpus.pieces.tag.$trg $data/$corpus.pieces.tag.$src > $data/$corpus.pieces.multilingual.$trg
     done
 
 done

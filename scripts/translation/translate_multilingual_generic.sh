@@ -1,6 +1,6 @@
 #! /bin/bash
 
-data=$base/data
+data=$base/data/$src-$trg
 scripts=$base/scripts
 
 translations=$base/translations
@@ -17,7 +17,7 @@ if [[ "$CUDA_VISIBLE_DEVICES" == "NoDevFiles" ]]; then
   num_threads=64
   device_arg="--use-cpu"
 else
-  num_threads=10
+  num_threads=3
   device_arg="--device-ids 0"
 fi
 
@@ -26,9 +26,9 @@ for domain in $domains; do
     data=$base/data/$src-$trg
 
     if [[ $domain != $in_domain ]]; then
-      data=$base/data/$domain/test_unknown_domain/$in_domain
+      data=$data/$domain/test_unknown_domain/$in_domain
     else
-      data=$base/data/$domain
+      data=$data/$domain
     fi
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
@@ -43,7 +43,7 @@ for domain in $domains; do
 
     # remove target language tag
 
-    cat $translations/$model_name/test.bpe.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --tag "<2$src>" > $translations/$model_name/test.bpe.$model_name.$domain.$trg
+    cat $translations/$model_name/test.bpe.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $translations/$model_name/test.bpe.$model_name.$domain.$trg
 
     # undo BPE
 

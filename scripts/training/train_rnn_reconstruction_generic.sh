@@ -24,8 +24,8 @@ python -m sockeye.train \
 --seed 1 \
 --batch-type word \
 --batch-size 4096 \
---device-ids 0 1 2 \
---decode-and-evaluate-device-id 3 \
+--device-ids 0 \
+--decode-and-evaluate-device-id 0 \
 --encoder rnn \
 --decoder rnn \
 --rnn-cell-type lstm \
@@ -60,7 +60,8 @@ python -m sockeye.train \
 --source-vocab $models/$init_model_name/vocab.src.0.json \
 --target-vocab $models/$init_model_name/vocab.trg.0.json \
 --reconstruction bilingual \
---reconstruction-loss-weight 0.5 \
+--reconstruction-loss-weight $reconstruction_loss_weight \
 --instantiate-hidden st-softmax \
 --softmax-temperature 2 \
---gumbel-noise-scale 1.0
+--gumbel-noise-scale 1.0 \
+--metrics perplexity perplexity-reconstruction
