@@ -1,15 +1,6 @@
 #! /bin/bash
 
-# check if calling script has set $base
-if [ $# -eq 0 ]; then
-  script_dir=`dirname "$0"`
-  base=$script_dir/../../..
-else
-  base=$1
-fi;
-
-src=de
-trg=en
+# cannot be called directly, needs to be invoked!
 
 data=$base/data
 models=$base/models/$src-$trg

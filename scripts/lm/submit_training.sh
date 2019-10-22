@@ -30,4 +30,4 @@ else
   exit
 fi;
 
-sbatch --qos=vesta --time=24:00:00 --gres gpu:Tesla-V100:1 --cpus-per-task 3 --mem 48g $1 $base
+sbatch --qos=vesta --time=48:00:00 --gres gpu:Tesla-V100:1 --cpus-per-task 3 --mem 48g $1 $base
