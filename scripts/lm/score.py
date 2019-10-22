@@ -36,9 +36,9 @@ class GeneratorHubInterfaceWithScoring(hub_utils.GeneratorHubInterface):
         score = hypo['score']
 
         scored_tokens = hypo['tokens']
-        scored_tokens = self.string(scored_tokens)
+        scored_sentence = self.string(scored_tokens)
 
-        assert tokens == scored_tokens, "Input tokens and the ones that are actually scored do not seem identical:\n%s\n%s" % (tokens, scored_tokens)
+        assert sentence == scored_sentence, "Input tokens and the ones that are actually scored do not seem identical:\n%s\n%s" % (sentence, scored_sentence)
 
         if verbose:
             print("TOKENS:\t%s" % scored_tokens)
