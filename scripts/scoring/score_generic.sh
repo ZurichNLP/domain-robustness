@@ -33,7 +33,7 @@ for domain in $domains; do
 
     # extract translations from JSON objects
 
-    $translations/$model_name/test.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 10 > $scores/$model_name/test.nbest.$model_name.$domain.$trg
+    cat $translations/$model_name/test.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 10 > $scores/$model_name/test.nbest.$model_name.$domain.$trg
 
     # for source, repeat each line as many times as size of nbest list
 
@@ -76,5 +76,14 @@ for domain in $domains; do
 
     deactivate
     source $base/venvs/sockeye3/bin/activate
+
+    # add all scores to nbest JSON
+
+    python $scripts/add_scores_to_nbest.py --nbest $translations/$model_name/test.nbest.$model_name.$domain.$trg \
+            --scores $scores/$model_name/test.lm.$model_name.$domain.scores \
+                     $scores/$model_name/test.tm_forward.$model_name.$domain.scores \
+                     $scores/$model_name/test.tm_backward.$model_name.$domain.scores \
+            --names "scores_lm scores_tm_forward scores_tm_backward" \
+            > $translations/$model_name/test.all_scores.$model_name.$domain.$trg
 
 done
