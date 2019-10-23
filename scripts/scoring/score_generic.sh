@@ -84,6 +84,17 @@ for domain in $domains; do
                      $scores/$model_name/test.tm_forward.$model_name.$domain.scores \
                      $scores/$model_name/test.tm_backward.$model_name.$domain.scores \
             --names "scores_lm scores_tm_forward scores_tm_backward" \
-            > $translations/$model_name/test.all_scores.$model_name.$domain.$trg
+            > $scores/$model_name/test.all_scores.$model_name.$domain.$trg
+
+    # rerank nbest translations
+
+    python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
+            --scores "scores_lm scores_tm_forward scores_tm_backward" \
+            --weights 0.4 0.4 0.2 \
+            > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
+
+    # extract top 1 after reranking
+
+    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.$model_name.$domain.$trg
 
 done
