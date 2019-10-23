@@ -51,6 +51,22 @@ for domain in $domains; do
             --disable-device-locking \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
+    # backward scoring
+
+    OMP_NUM_THREADS=$num_threads python -m sockeye.score \
+            --source $scores/$model_name/test.nbest.$model_name.$domain.$trg \
+            --target $scores/$model_name/test.nbest.$model_name.$domain.$src \
+            -m $base/models/$src-$trg/$model_name \
+            --length-penalty-alpha 1.0 \
+            $device_arg \
+            --batch-size 64 \
+            --disable-device-locking \
+            --output $scores/$model_name/test.tm_backward.$model_name.$domain.scores
+
+    # remove tags for LM scoring
+
+    cat $scores/$model_name/test.nbest.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $scores/$model_name/test.nbest_no_tags.$model_name.$domain.$trg
+
     # hackish, but: activate fairseq3 venv
 
     deactivate
@@ -58,7 +74,7 @@ for domain in $domains; do
 
     # fairseq LM scoring of target side
 
-    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm --input $scores/$model_name/test.nbest.$model_name.$domain.$trg > $scores/$model_name/test.lm.$model_name.$domain.scores
+    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm --input $scores/$model_name/test.nbest_no_tags.$model_name.$domain.$trg > $scores/$model_name/test.lm.$model_name.$domain.scores
 
     # re-activate sockeye venv
 
@@ -70,14 +86,15 @@ for domain in $domains; do
     python $scripts/add_scores_to_nbest.py --nbest $translations/$model_name/test.nbest.$model_name.$domain.$trg \
             --scores $scores/$model_name/test.lm.$model_name.$domain.scores \
                      $scores/$model_name/test.tm_forward.$model_name.$domain.scores \
-            --names "scores_lm scores_tm_forward" \
+                     $scores/$model_name/test.tm_backward.$model_name.$domain.scores \
+            --names "scores_lm scores_tm_forward scores_tm_backward" \
             > $scores/$model_name/test.all_scores.$model_name.$domain.$trg
 
     # rerank nbest translations
 
     python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
-            --scores "scores_lm scores_tm_forward" \
-            --weights 0.5 0.5 \
+            --scores "scores_lm scores_tm_forward scores_tm_backward" \
+            --weights 0.4 0.4 0.2 \
             > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
 
     # extract top 1 after reranking
