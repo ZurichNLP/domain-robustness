@@ -47,7 +47,7 @@ for domain in $domains; do
             -m $base/models/$src-$trg/$model_name \
             --length-penalty-alpha 1.0 \
             $device_arg \
-            --batch-size 64 \
+            --batch-size 512 \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
@@ -59,7 +59,7 @@ for domain in $domains; do
             -m $base/models/$src-$trg/$model_name \
             --length-penalty-alpha 1.0 \
             $device_arg \
-            --batch-size 64 \
+            --batch-size 512 \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_backward.$model_name.$domain.scores
 
@@ -69,7 +69,6 @@ for domain in $domains; do
 
     # hackish, but: activate fairseq3 venv
 
-    deactivate
     source $base/venvs/fairseq3/bin/activate
 
     # fairseq LM scoring of target side
@@ -78,7 +77,6 @@ for domain in $domains; do
 
     # re-activate sockeye venv
 
-    deactivate
     source $base/venvs/sockeye3/bin/activate
 
     # add all scores to nbest JSON
