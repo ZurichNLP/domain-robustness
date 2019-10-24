@@ -48,6 +48,7 @@ for domain in $domains; do
             --length-penalty-alpha 1.0 \
             $device_arg \
             --batch-size 512 \
+            --max-seq-len 512:512 \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
@@ -60,6 +61,7 @@ for domain in $domains; do
             --length-penalty-alpha 1.0 \
             $device_arg \
             --batch-size 512 \
+            --max-seq-len 512:512 \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_backward.$model_name.$domain.scores
 
@@ -73,7 +75,9 @@ for domain in $domains; do
 
     # fairseq LM scoring of target side
 
-    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm --input $scores/$model_name/test.nbest_no_tags.$model_name.$domain.$trg > $scores/$model_name/test.lm.$model_name.$domain.scores
+    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm \
+                                --input $scores/$model_name/test.nbest_no_tags.$model_name.$domain.$trg \
+                                --output $scores/$model_name/test.lm.$model_name.$domain.scores
 
     # re-activate sockeye venv
 

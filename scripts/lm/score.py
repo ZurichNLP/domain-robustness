@@ -67,6 +67,7 @@ def parse_args():
 
     parser.add_argument("--model-dir", type=str, help="Path where model file is stored.", required=True)
     parser.add_argument("--input", type=str, help="File to score, line by line.", required=True)
+    parser.add_argument("--output", type=str, help="File to save scores to.", required=True)
 
     args = parser.parse_args()
 
@@ -82,10 +83,10 @@ def main():
 
     custom_lm = FairseqLanguageModelWithScoring.from_pretrained(args.model_dir, 'checkpoint_best.pt')
 
-    with open(args.input) as infile:
+    with open(args.input, "r") as infile, open(args.output, "w") as outfile:
         for line in infile:
             line = line.strip()
-            print(custom_lm.score(line))
+            outfile.write("%f\n" % custom_lm.score(line))
 
 
 if __name__ == '__main__':

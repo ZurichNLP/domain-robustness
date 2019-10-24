@@ -49,20 +49,21 @@ for domain in $domains; do
             $device_arg \
             --batch-size 512 \
             --disable-device-locking \
+            --max-seq-len 512:512 \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
     # hackish, but: activate fairseq3 venv
 
-    deactivate
     source $base/venvs/fairseq3/bin/activate
 
     # fairseq LM scoring of target side
 
-    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm --input $scores/$model_name/test.nbest.$model_name.$domain.$trg > $scores/$model_name/test.lm.$model_name.$domain.scores
+    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm \
+                                --input $scores/$model_name/test.nbest.$model_name.$domain.$trg \
+                                --output $scores/$model_name/test.lm.$model_name.$domain.scores
 
     # re-activate sockeye venv
 
-    deactivate
     source $base/venvs/sockeye3/bin/activate
 
     # add all scores to nbest JSON

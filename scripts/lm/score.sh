@@ -8,8 +8,9 @@ else
   base=$1
 fi;
 
-echo "the potentially medically important signs and symptoms" >> testfile
+echo "the potentially medically important signs and symptoms" >> infile
 
-python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input testfile
-
-rm testfile
+python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input infile --output outfile
+cat outfile
+rm outfile
+rm infile
