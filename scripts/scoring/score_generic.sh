@@ -50,6 +50,7 @@ for domain in $domains; do
             --batch-size 512 \
             --disable-device-locking \
             --max-seq-len 512:512 \
+            --score-type logprob \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
     # hackish, but: activate fairseq3 venv
@@ -71,13 +72,13 @@ for domain in $domains; do
     python $scripts/add_scores_to_nbest.py --nbest $translations/$model_name/test.nbest.$model_name.$domain.$trg \
             --scores $scores/$model_name/test.lm.$model_name.$domain.scores \
                      $scores/$model_name/test.tm_forward.$model_name.$domain.scores \
-            --names "scores_lm scores_tm_forward" \
+            --names "scores_lm" "scores_tm_forward" \
             > $scores/$model_name/test.all_scores.$model_name.$domain.$trg
 
     # rerank nbest translations
 
     python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
-            --scores "scores_lm scores_tm_forward" \
+            --scores "scores_lm" "scores_tm_forward" \
             --weights 0.5 0.5 \
             > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
 

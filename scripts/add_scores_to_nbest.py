@@ -24,7 +24,6 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
     logging.debug(args)
 
-
     score_handles = []
 
     for scores_path in args.scores:

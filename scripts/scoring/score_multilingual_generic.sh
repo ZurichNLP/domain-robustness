@@ -49,6 +49,7 @@ for domain in $domains; do
             $device_arg \
             --batch-size 512 \
             --max-seq-len 512:512 \
+            --score-type logprob \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_forward.$model_name.$domain.scores
 
@@ -62,6 +63,7 @@ for domain in $domains; do
             $device_arg \
             --batch-size 512 \
             --max-seq-len 512:512 \
+            --score-type logprob \
             --disable-device-locking \
             --output $scores/$model_name/test.tm_backward.$model_name.$domain.scores
 
@@ -89,13 +91,13 @@ for domain in $domains; do
             --scores $scores/$model_name/test.lm.$model_name.$domain.scores \
                      $scores/$model_name/test.tm_forward.$model_name.$domain.scores \
                      $scores/$model_name/test.tm_backward.$model_name.$domain.scores \
-            --names "scores_lm scores_tm_forward scores_tm_backward" \
+            --names "scores_lm" "scores_tm_forward" "scores_tm_backward" \
             > $scores/$model_name/test.all_scores.$model_name.$domain.$trg
 
     # rerank nbest translations
 
     python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
-            --scores "scores_lm scores_tm_forward scores_tm_backward" \
+            --scores "scores_lm" "scores_tm_forward" "scores_tm_backward" \
             --weights 0.4 0.4 0.2 \
             > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
 
