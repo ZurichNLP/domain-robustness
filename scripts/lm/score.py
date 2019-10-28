@@ -10,8 +10,8 @@ from fairseq.models.fairseq_model import FairseqLanguageModel
 
 class GeneratorHubInterfaceWithScoring(hub_utils.GeneratorHubInterface):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, args, task, models):
+        super().__init__(args, task, models)
 
         self.num_lines_seen = 0
         self.num_unk_lines_seen = 0
