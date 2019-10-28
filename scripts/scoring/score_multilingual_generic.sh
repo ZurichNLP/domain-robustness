@@ -79,7 +79,8 @@ for domain in $domains; do
 
     python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm \
                                 --input $scores/$model_name/test.nbest_no_tags.$model_name.$domain.$trg \
-                                --output $scores/$model_name/test.lm.$model_name.$domain.scores
+                                --output $scores/$model_name/test.lm.$model_name.$domain.scores \
+                                --unk-penalty -100.0
 
     # re-activate sockeye venv
 
