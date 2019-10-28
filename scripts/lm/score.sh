@@ -14,3 +14,12 @@ python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input i
 cat outfile
 rm outfile
 rm infile
+
+# test case with UNK tokens, where the score should be -100
+
+echo "the potentially medically Ver@@ Ukd@ signs and symptoms" >> infile
+
+python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input infile --output outfile --unk-penalty -100.0
+cat outfile
+rm outfile
+rm infile

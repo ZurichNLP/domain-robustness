@@ -19,6 +19,7 @@ class GeneratorHubInterfaceWithScoring(hub_utils.GeneratorHubInterface):
     def score(self,
               sentence: str,
               unk_penalty: float = None,
+              verbose: bool = False,
               **kwargs) -> float:
 
         self.num_lines_seen += 1
@@ -46,7 +47,8 @@ class GeneratorHubInterfaceWithScoring(hub_utils.GeneratorHubInterface):
         scored_sentence = self.string(scored_tokens)
 
         if sentence != scored_sentence:
-            logging.debug("Input tokens and the ones that are actually scored do not seem identical:\n%s\n%s" % (sentence, scored_sentence))
+            if verbose:
+                logging.debug("Input tokens and the ones that are actually scored do not seem identical:\n%s\n%s" % (sentence, scored_sentence))
             self.num_unk_lines_seen += 1
 
             if unk_penalty is not None:
