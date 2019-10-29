@@ -27,6 +27,8 @@ def main():
         jobj = json.loads(line)
         best_translations = jobj["translations"][:args.top]
 
+        assert len(best_translations) == args.top, "Nbest list did not contain as many translations as requested with --args.top:\n%s\n%s" % str(nbest_translations)
+
         for best_translation in best_translations:
             print(best_translation)
 

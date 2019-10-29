@@ -3,7 +3,7 @@
 # check if calling script has set $base
 if [ $# -eq 0 ]; then
   script_dir=`dirname "$0"`
-  base=$script_dir/../../..
+  base=$script_dir/../..
 else
   base=$1
 fi;
@@ -13,7 +13,10 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-preprocessed_data=$data/$src-$trg/fairseq-preprocessed
-model_name=fairseq-lm
+model_name=transformer_multilingual
 
-. $scripts/lm/training/train_lm_generic.sh
+in_domain=law
+
+domains="law blogs"
+
+. $scripts/scoring/score_multilingual_generic.sh

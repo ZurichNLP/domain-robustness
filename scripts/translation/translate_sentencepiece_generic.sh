@@ -33,13 +33,18 @@ for domain in $domains; do
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             -i $data/test.pieces.$src \
-            -o $translations/$model_name/test.pieces.$model_name.$domain.$trg \
+            -o $translations/$model_name/test.nbest.$model_name.$domain.$trg \
             -m $base/models/$src-$trg/$model_name \
             --beam-size 10 \
+            --nbest-size 10 \
             --length-penalty-alpha 1.0 \
             $device_arg \
             --batch-size 64 \
             --disable-device-locking
+
+    # extract 1-best from nbest JSON
+
+    cat $translations/$model_name/test.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $translations/$model_name/test.pieces.$model_name.$domain.$trg
 
     # undo pieces
 
