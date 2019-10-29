@@ -39,7 +39,7 @@ for domain in $domains; do
 
     # for source, repeat each line as many times as size of nbest list
 
-    cat $data/test.bpe.$src | perl -ne 'print $_ x 10' > $scores/$model_name/test.nbest.$model_name.$domain.$src
+    cat $data/test.pieces.$src | perl -ne 'print $_ x 10' > $scores/$model_name/test.nbest.$model_name.$domain.$src
 
     # forward scoring
 
