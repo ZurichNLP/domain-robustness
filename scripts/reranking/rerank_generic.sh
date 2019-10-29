@@ -1,6 +1,5 @@
 #! /bin/bash
 
-data=$base/data/$src-$trg
 scripts=$base/scripts
 
 scores=$base/scores
@@ -8,7 +7,7 @@ scores=$base/scores
 reranked=$base/reranked
 mkdir -p $reranked
 
-reranked=$base/scores/$src-$trg
+reranked=$base/reranked/$src-$trg
 mkdir -p $reranked
 
 mkdir -p $reranked/$model_name
