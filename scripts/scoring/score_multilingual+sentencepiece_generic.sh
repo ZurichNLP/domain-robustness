@@ -97,31 +97,4 @@ for domain in $domains; do
             --names "scores_lm" "scores_tm_forward" "scores_tm_backward" \
             > $scores/$model_name/test.all_scores.$model_name.$domain.$trg
 
-    # rerank nbest translations
-
-    python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
-            --scores "scores_lm" "scores_tm_forward" "scores_tm_backward" \
-            --weights 0.4 0.4 0.2 \
-            > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
-
-    # extract top 1 after reranking
-
-    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.pieces.tag.$model_name.$domain.$trg
-
-    # remove target language tag
-
-    cat $scores/$model_name/test.reranked_best.pieces.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $scores/$model_name/test.reranked_best.pieces.$model_name.$domain.$trg
-
-    # undo pieces
-
-    cat $scores/$model_name/test.reranked_best.pieces.$model_name.$domain.$trg | python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg
-
-    # undo truecasing
-
-    cat $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $scores/$model_name/test.reranked_best.tokenized.$model_name.$domain.$trg
-
-    # undo tokenization
-
-    cat $scores/$model_name/test.reranked_best.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $scores/$model_name/test.reranked_best.$model_name.$domain.$trg
-
 done
