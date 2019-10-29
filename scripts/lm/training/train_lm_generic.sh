@@ -5,11 +5,7 @@
 data=$base/data
 models=$base/models/$src-$trg
 
-preprocessed_data=$data/$src-$trg/fairseq-preprocessed
-
 mkdir -p $models
-
-model_name=fairseq-lm
 
 mkdir -p $models/$model_name
 

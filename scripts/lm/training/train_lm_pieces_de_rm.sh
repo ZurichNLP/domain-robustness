@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-preprocessed_data=$data/$src-$trg/fairseq-preprocessed
-model_name=fairseq-lm
+preprocessed_data=$data/$src-$trg/fairseq-preprocessed-pieces
+model_name=fairseq-lm-pieces
 
 . $scripts/lm/training/train_lm_generic.sh
