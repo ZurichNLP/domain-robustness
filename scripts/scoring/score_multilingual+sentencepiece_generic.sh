@@ -101,20 +101,20 @@ for domain in $domains; do
 
     python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
             --scores "scores_lm" "scores_tm_forward" "scores_tm_backward" \
-            --weights 0.4 0.3 0.3 \
+            --weights 0.4 0.4 0.2 \
             > $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg
 
     # extract top 1 after reranking
 
-    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.bpe.tag.$model_name.$domain.$trg
+    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.pieces.tag.$model_name.$domain.$trg
 
     # remove target language tag
 
-    cat $scores/$model_name/test.reranked_best.bpe.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $scores/$model_name/test.reranked_best.bpe.$model_name.$domain.$trg
+    cat $scores/$model_name/test.reranked_best.pieces.tag.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $scores/$model_name/test.reranked_best.pieces.$model_name.$domain.$trg
 
-    # undo BPE
+    # undo pieces
 
-    cat $scores/$model_name/test.reranked_best.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg
+    cat $scores/$model_name/test.reranked_best.pieces.$model_name.$domain.$trg | python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg
 
     # undo truecasing
 

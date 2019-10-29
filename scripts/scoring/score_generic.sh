@@ -11,6 +11,8 @@ mkdir -p $scores
 
 mkdir -p $scores/$model_name
 
+MOSES=$base/tools/moses-scripts/scripts
+
 translations=$base/translations/$src-$trg
 
 if [[ "$CUDA_VISIBLE_DEVICES" == "NoDevFiles" ]]; then
@@ -85,6 +87,18 @@ for domain in $domains; do
 
     # extract top 1 after reranking
 
-    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.$model_name.$domain.$trg
+    cat $scores/$model_name/test.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $scores/$model_name/test.reranked_best.bpe.$model_name.$domain.$trg
+
+    # undo BPE
+
+    cat $scores/$model_name/test.reranked_best.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg
+
+    # undo truecasing
+
+    cat $scores/$model_name/test.reranked_best.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $scores/$model_name/test.reranked_best.tokenized.$model_name.$domain.$trg
+
+    # undo tokenization
+
+    cat $scores/$model_name/test.reranked_best.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $scores/$model_name/test.reranked_best.$model_name.$domain.$trg
 
 done
