@@ -51,17 +51,24 @@ def main():
                     sum += (weight * score)
                 rerank_scores.append(sum)
 
-            jobj["rerank_scores"] = rerank_scores
-
             index = argsort(rerank_scores)
 
-            # reorder translations with rerank scores
+            # reorder translations and other fields with rerank scores
 
             translations = jobj["translations"]
 
+            all_score_names = args.scores + ["scores"]
+
+            for score_name in all_score_names:
+                original_list = jobj[score_name]
+                sorted_list = [original_list[i] for i in index]
+                jobj[score_name] = sorted_list
+
             translations = [translations[i] for i in index]
+            rerank_scores = [rerank_scores[i] for i in index]
 
             jobj["translations"] = translations
+            jobj["rerank_scores"] = rerank_scores
 
             print(json.dumps(jobj))
 
