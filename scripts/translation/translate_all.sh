@@ -19,6 +19,8 @@ for trg in en rm; do
       if [[ ! -d $translations/$src-$trg/$model_name ]]; then
         echo "Translations not found: $translations/$src-$trg/$model_name"
         $scripts/wrap-slurm-gpu-translation-task.sh $scripts/translation/translate_${model_name}_${src}_${trg}.sh
+      else
+        echo "Translations exist: $translations/$src-$trg/$model_name"
       fi
     fi
   done
