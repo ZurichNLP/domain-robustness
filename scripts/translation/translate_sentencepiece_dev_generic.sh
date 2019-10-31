@@ -26,7 +26,7 @@ for domain in $in_domain; do
     data=$base/data/$src-$trg/$domain
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
-            -i $data/test.pieces.$src \
+            -i $data/dev.pieces.$src \
             -o $translations/$model_name/dev.nbest.$model_name.$domain.$trg \
             -m $base/models/$src-$trg/$model_name \
             --beam-size 50 \
