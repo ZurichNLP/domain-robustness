@@ -18,7 +18,7 @@ for domain in $domains; do
 
     # rerank nbest translations
 
-    python $scripts/rerank_nbest.py --nbest $scores/$model_name/test.all_scores.$model_name.$domain.$trg \
+    python $scripts/rerank_nbest.py --nbest $scores/$model_prefix/test.all_scores.$model_name.$domain.$trg \
             --scores "scores_lm" "scores_tm_forward" "scores_tm_backward" \
             --weights $weight_combination \
             > $reranked/$model_name/test.reranked_nbest.$model_name.$domain.$trg
