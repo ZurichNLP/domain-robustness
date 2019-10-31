@@ -10,12 +10,17 @@ translations=$base/translations
 src=de
 
 for trg in en rm; do
-  for model_name in transformer transformer_multilingual transformer_multilingual+sentencepiece transformer_sentencepiece transformer_reconstruction_tinylr transformer_reconstruction+sentencepiece transformer_distillation; do
+  for model_name in $models/$src-$trg/*; do
 
     if [[ -d $base/translations/$src-$trg/$model_name ]]; then
-      echo "#"
-      echo "Executing $scripts/evaluation/evaluate_${model_name}_${src}_${trg}.sh ..."
-      . $scripts/evaluation/evaluate_${model_name}_${src}_${trg}.sh
+      echo "Translations exist: $base/translations/$src-$trg/$model_name"
+      if [[ -d $base/bleu/$src-$trg/$model_name ]]; then
+        echo "BLEU scores exist: $base/bleu/$src-$trg/$model_name"
+        echo "Will skip!"
+      else
+        echo "#"
+        . $scripts/evaluation/evaluate_generic.sh
+      fi
     fi
   done
 done

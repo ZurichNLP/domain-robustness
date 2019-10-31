@@ -20,3 +20,4 @@ in_domain=law
 domains="law blogs"
 
 . $scripts/translation/translate_generic.sh
+. $scripts/translation/translate_dev_generic.sh

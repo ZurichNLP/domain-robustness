@@ -13,11 +13,11 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-model_name=transformer_sentencepiece
+model_name=transformer_reconstruction_tinylr
 
 in_domain=law
 
 domains="law blogs"
 
-. $scripts/translation/translate_sentencepiece_generic.sh
-. $scripts/translation/translate_sentencepiece_dev_generic.sh
+# . $scripts/translation/translate_multilingual_generic.sh
+. $scripts/translation/translate_multilingual_dev_generic.sh

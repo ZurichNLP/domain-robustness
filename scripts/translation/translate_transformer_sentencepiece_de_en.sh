@@ -20,3 +20,4 @@ in_domain=medical
 domains="it koran law medical subtitles"
 
 . $scripts/translation/translate_sentencepiece_generic.sh
+. $scripts/translation/translate_sentencepiece_dev_generic.sh

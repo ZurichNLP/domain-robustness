@@ -1,6 +1,9 @@
 venvs
 shared_models
 tools
+bleu_reranked
+scores
+reranked
 models
 data
 .idea

@@ -19,4 +19,5 @@ in_domain=law
 
 domains="law blogs"
 
-. $scripts/translation/translate_multilingual_generic.sh
+# . $scripts/translation/translate_multilingual_generic.sh
+. $scripts/translation/translate_multilingual_dev_generic.sh

@@ -19,4 +19,5 @@ in_domain=law
 
 domains="law blogs"
 
-. $scripts/translation/translate_transformer_multilingual+sentencepiece_generic.sh
+# . $scripts/translation/translate_transformer_multilingual+sentencepiece_generic.sh
+. $scripts/translation/translate_transformer_multilingual+sentencepiece_dev_generic.sh

@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-model_name=transformer_reconstruction+sentencepiece
+model_name=transformer_multilingual+sentencepiece_tie2
 
 in_domain=law
 
