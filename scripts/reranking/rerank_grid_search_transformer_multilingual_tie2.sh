@@ -13,9 +13,12 @@ weight_combinations="0.1 0.1 0.8" "0.1 0.2 0.7" "0.1 0.3 0.6" "0.1 0.4 0.5" "0.1
 domains="it koran law medical subtitles"
 
 for weight_combination in $weight_combinations; do
-  rerank_suffix="$(echo -e "${weight_combination}" | tr -d '[:space:]')"
+  rerank_suffix="$(echo "${weight_combination}" | tr -d '[:space:]')"
 
   model_name="${model_prefix}_${rerank_suffix}"
+
+  echo "model_name: ${model_name}"
+  echo "##############################"
 
   . $scripts/reranking/rerank_multilingual_generic.sh
   . $scripts/evaluation/evaluate_reranked_generic.sh
