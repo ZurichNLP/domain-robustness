@@ -19,4 +19,10 @@ in_domain=law
 
 domains="law blogs"
 
+corpus=test
+
 . $scripts/scoring/score_multilingual_generic.sh
+
+corpus=dev
+
+. $scripts/scoring/score_generic.sh

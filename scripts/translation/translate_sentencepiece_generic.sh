@@ -35,11 +35,11 @@ for domain in $domains; do
             -i $data/test.pieces.$src \
             -o $translations/$model_name/test.nbest.$model_name.$domain.$trg \
             -m $base/models/$src-$trg/$model_name \
-            --beam-size 10 \
-            --nbest-size 10 \
+            --beam-size $beam_size \
+            --nbest-size $beam_size \
             --length-penalty-alpha 1.0 \
             $device_arg \
-            --batch-size 64 \
+            --batch-size $batch_size \
             --disable-device-locking
 
     # extract 1-best from nbest JSON

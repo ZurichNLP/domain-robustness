@@ -14,29 +14,33 @@ mkdir -p $reranked/$model_name
 
 MOSES=$base/tools/moses-scripts/scripts
 
-for domain in $in_domain; do
+if [[ $corpus == 'dev' ]]; then
+    domains=$in_domain
+  fi
+
+for domain in $domains; do
 
     # rerank nbest translations
 
-    python $scripts/rerank_nbest.py --nbest $scores/$model_prefix/dev.all_scores.$model_prefix.$domain.$trg \
+    python $scripts/rerank_nbest.py --nbest $scores/$model_prefix/$corpus.all_scores.$model_prefix.$domain.$trg \
             --scores "scores_lm" "scores_tm_forward" \
             --weights $weight_combination \
-            > $reranked/$model_name/dev.reranked_nbest.$model_name.$domain.$trg
+            > $reranked/$model_name/$corpus.reranked_nbest.$model_name.$domain.$trg
 
     # extract top 1 after reranking
 
-    cat $reranked/$model_name/dev.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $reranked/$model_name/dev.reranked_best.bpe.$model_name.$domain.$trg
+    cat $reranked/$model_name/$corpus.reranked_nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $reranked/$model_name/$corpus.reranked_best.bpe.$model_name.$domain.$trg
 
     # undo BPE
 
-    cat $reranked/$model_name/dev.reranked_best.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $reranked/$model_name/dev.reranked_best.truecased.$model_name.$domain.$trg
+    cat $reranked/$model_name/$corpus.reranked_best.bpe.$model_name.$domain.$trg | sed -r 's/@@( |$)//g' > $reranked/$model_name/$corpus.reranked_best.truecased.$model_name.$domain.$trg
 
     # undo truecasing
 
-    cat $reranked/$model_name/dev.reranked_best.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $reranked/$model_name/dev.reranked_best.tokenized.$model_name.$domain.$trg
+    cat $reranked/$model_name/$corpus.reranked_best.truecased.$model_name.$domain.$trg | $MOSES/recaser/detruecase.perl > $reranked/$model_name/$corpus.reranked_best.tokenized.$model_name.$domain.$trg
 
     # undo tokenization
 
-    cat $reranked/$model_name/dev.reranked_best.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $reranked/$model_name/dev.reranked_best.$model_name.$domain.$trg
+    cat $reranked/$model_name/$corpus.reranked_best.tokenized.$model_name.$domain.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $reranked/$model_name/$corpus.reranked_best.$model_name.$domain.$trg
 
 done

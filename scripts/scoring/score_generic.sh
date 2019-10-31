@@ -23,23 +23,33 @@ else
   device_arg="--device-ids 0"
 fi
 
-for domain in $in_domain; do
+if [[ $corpus == 'dev' ]]; then
+  domains=$in_domain
+fi
 
-    data=$base/data/$src-$trg/$domain
+for domain in $domains; do
+
+    data=$base/data/$src-$trg
+
+    if [[ $domain != $in_domain ]]; then
+      data=$data/$domain/test_unknown_domain/$in_domain
+    else
+      data=$data/$domain
+    fi
 
     # extract translations from JSON objects
 
-    cat $translations/$model_name/dev.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 50 > $scores/$model_name/dev.nbest.$model_name.$domain.$trg
+    cat $translations/$model_name/$corpus.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 50 > $scores/$model_name/$corpus.nbest.$model_name.$domain.$trg
 
     # for source, repeat each line as many times as size of nbest list
 
-    cat $data/dev.bpe.$src | perl -ne 'print $_ x 50' > $scores/$model_name/dev.nbest.$model_name.$domain.$src
+    cat $data/$corpus.bpe.$src | perl -ne 'print $_ x 50' > $scores/$model_name/$corpus.nbest.$model_name.$domain.$src
 
     # forward scoring
 
     OMP_NUM_THREADS=$num_threads python -m sockeye.score \
-            --source $scores/$model_name/dev.nbest.$model_name.$domain.$src \
-            --target $scores/$model_name/dev.nbest.$model_name.$domain.$trg \
+            --source $scores/$model_name/$corpus.nbest.$model_name.$domain.$src \
+            --target $scores/$model_name/$corpus.nbest.$model_name.$domain.$trg \
             -m $base/models/$src-$trg/$model_name \
             --length-penalty-alpha 1.0 \
             $device_arg \
@@ -47,7 +57,7 @@ for domain in $in_domain; do
             --disable-device-locking \
             --max-seq-len 512:512 \
             --score-type logprob \
-            --output $scores/$model_name/dev.tm_forward.$model_name.$domain.scores
+            --output $scores/$model_name/$corpus.tm_forward.$model_name.$domain.scores
 
     # hackish, but: activate fairseq3 venv
 
@@ -56,8 +66,8 @@ for domain in $in_domain; do
     # fairseq LM scoring of target side
 
     python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm \
-                                --input $scores/$model_name/dev.nbest.$model_name.$domain.$trg \
-                                --output $scores/$model_name/dev.lm.$model_name.$domain.scores \
+                                --input $scores/$model_name/$corpus.nbest.$model_name.$domain.$trg \
+                                --output $scores/$model_name/$corpus.lm.$model_name.$domain.scores \
                                 --unk-penalty -100.0
 
     # re-activate sockeye venv
@@ -66,10 +76,10 @@ for domain in $in_domain; do
 
     # add all scores to nbest JSON
 
-    python $scripts/add_scores_to_nbest.py --nbest $translations/$model_name/dev.nbest.$model_name.$domain.$trg \
-            --scores $scores/$model_name/dev.lm.$model_name.$domain.scores \
-                     $scores/$model_name/dev.tm_forward.$model_name.$domain.scores \
+    python $scripts/add_scores_to_nbest.py --nbest $translations/$model_name/$corpus.nbest.$model_name.$domain.$trg \
+            --scores $scores/$model_name/$corpus.lm.$model_name.$domain.scores \
+                     $scores/$model_name/$corpus.tm_forward.$model_name.$domain.scores \
             --names "scores_lm" "scores_tm_forward" \
-            > $scores/$model_name/dev.all_scores.$model_name.$domain.$trg
+            > $scores/$model_name/$corpus.all_scores.$model_name.$domain.$trg
 
 done
