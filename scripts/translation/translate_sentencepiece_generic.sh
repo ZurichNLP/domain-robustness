@@ -31,6 +31,8 @@ for domain in $domains; do
       data=$data/$domain
     fi
 
+    # produce nbest list, desired beam size, desired batch size
+
     OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
             -i $data/test.pieces.$src \
             -o $translations/$model_name/test.nbest.$model_name.$domain.$trg \
@@ -42,9 +44,17 @@ for domain in $domains; do
             --batch-size $batch_size \
             --disable-device-locking
 
-    # extract 1-best from nbest JSON
+    # 1-best, fixed beam size, fixed batch size
 
-    cat $translations/$model_name/test.nbest.$model_name.$domain.$trg | python $scripts/extract_top_translations_from_nbest.py --top 1 > $translations/$model_name/test.pieces.$model_name.$domain.$trg
+    OMP_NUM_THREADS=$num_threads python -m sockeye.translate \
+            -i $data/test.pieces.$src \
+            -o $translations/$model_name/test.pieces.$model_name.$domain.$trg \
+            -m $base/models/$src-$trg/$model_name \
+            --beam-size 10 \
+            --length-penalty-alpha 1.0 \
+            $device_arg \
+            --batch-size 64 \
+            --disable-device-locking
 
     # undo pieces
 
