@@ -11,8 +11,8 @@ scores=$base/scores
 src=de
 
 for trg in en rm; do
-  # for model_name in transformer transformer_distillation transformer_sentencepiece transformer_multilingual transformer_multilingual+sentencepiece transformer_multilingual+sentencepiece_tie2 transformer_multilingual_tie2 transformer_reconstruction+sentencepiece transformer_reconstruction+sentencepiece_tie2 transformer_reconstruction_tie2 transformer_reconstruction_tinylr; do
-  for model_name in transformer_multilingual transformer_multilingual+sentencepiece transformer_multilingual+sentencepiece_tie2 transformer_multilingual_tie2 transformer_reconstruction+sentencepiece transformer_reconstruction+sentencepiece_tie2 transformer_reconstruction_tie2 transformer_reconstruction_tinylr; do
+
+  for model_name in transformer_multilingual transformer_multilingual+sentencepiece transformer_multilingual_tie2 transformer_reconstruction+sentencepiece transformer_reconstruction_tie2 transformer_reconstruction_tinylr; do
 
     echo "###############################################"
 
