@@ -32,7 +32,7 @@ fi;
 
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
-  sbatch --qos=vesta --time=1:00:00 --gres gpu:Tesla-V100:1 --cpus-per-task 3 --mem 48g $1 $base
+  sbatch --qos=vesta --time=1:10:00 --gres gpu:Tesla-V100:1 --cpus-per-task 3 --mem 48g $1 $base
 else
   # CSD3
   sbatch -A T2-CS037-GPU --gres=gpu:1 --nodes=1 --time=24:00:00 --cpus-per-task 3 -p pascal $1 $base
