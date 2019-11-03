@@ -13,7 +13,7 @@ scripts=$base/scripts
 src=de
 trg=rm
 
-model_name=transformer_reconstruction
+model_name=transformer_reconstruction_tinylr
 
 in_domain=law
 
