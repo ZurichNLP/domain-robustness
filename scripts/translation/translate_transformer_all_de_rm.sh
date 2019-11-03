@@ -15,7 +15,7 @@ trg=rm
 
 model_name=transformer_all
 
-in_domain=law
+in_domain=all
 
 domains="law blogs"
 

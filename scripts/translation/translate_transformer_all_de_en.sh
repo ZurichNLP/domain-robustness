@@ -15,7 +15,7 @@ trg=en
 
 model_name=transformer_all
 
-in_domain=medical
+in_domain=all
 
 domains="it koran law medical subtitles"
 
