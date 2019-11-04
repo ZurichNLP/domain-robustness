@@ -21,7 +21,7 @@ in_domain=medical
 
 corpus=test
 
-weight_combination="0.1 0.1 0.8"
+weight_combination="0.1 0.6 0.3"
 
 rerank_suffix="$(echo "${weight_combination}" | tr -d '[:space:]')"
 model_name="${model_prefix}_${rerank_suffix}"
