@@ -18,7 +18,8 @@ MOSES=$base/tools/moses-scripts/scripts
 
 if [[ $corpus == 'dev' ]]; then
     domains=$in_domain
-  fi
+    scores=$base/scores_dev/$src-$trg
+fi
 
 for domain in $domains; do
 
