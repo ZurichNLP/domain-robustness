@@ -24,7 +24,7 @@ if [[ -d $reranked/$model_prefix ]]; then
 
       # compute case-sensitive BLEU on detokenized data
 
-      cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg | sacrebleu $data/dev.$trg > $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
+      cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg | sacrebleu $data/$corpus.$trg > $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
 
       echo "$bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu"
       cat $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu

@@ -2,7 +2,7 @@
 
 scripts=$base/scripts
 
-scores=$base/scores_dev/$src-$trg
+scores=$base/scores/$src-$trg
 
 reranked=$base/reranked
 mkdir -p $reranked
