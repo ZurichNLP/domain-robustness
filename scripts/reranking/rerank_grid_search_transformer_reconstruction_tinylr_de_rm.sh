@@ -9,14 +9,14 @@ else
 fi;
 
 src=de
-trg=en
+trg=rm
 
 scripts=$base/scripts
 
-model_prefix=transformer_reconstruction+sentencepiece_tie2
+model_prefix=transformer_reconstruction_tinylr
 
-domains="it koran law medical subtitles"
-in_domain=medical
+domains="law blogs"
+in_domain=law
 
 corpus=dev
 
@@ -28,6 +28,6 @@ for weight_combination in "0.0 0.0 1.0"	"0.0 0.1 0.9"	"0.0 0.2 0.8"	"0.0 0.3 0.7
   echo "model_name: ${model_name}"
   echo "##############################"
 
-  . $scripts/reranking/rerank_multilingual+sentencepiece_generic.sh
+  . $scripts/reranking/rerank_multilingual_generic.sh
   . $scripts/evaluation/evaluate_reranked_generic.sh
 done

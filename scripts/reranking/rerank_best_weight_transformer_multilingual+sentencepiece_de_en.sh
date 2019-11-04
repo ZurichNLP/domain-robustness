@@ -11,9 +11,10 @@ fi;
 src=de
 trg=en
 
+data=$base/data/$src-$trg
 scripts=$base/scripts
 
-model_prefix=transformer_reconstruction+sentencepiece_tie2
+model_prefix=transformer_multilingual+sentencepiece
 
 domains="it koran law medical subtitles"
 in_domain=medical

@@ -13,7 +13,7 @@ trg=rm
 
 scripts=$base/scripts
 
-model_prefix=transformer_reconstruction
+model_prefix=transformer_reconstruction_tinylr
 
 domains="law blogs"
 in_domain=law
