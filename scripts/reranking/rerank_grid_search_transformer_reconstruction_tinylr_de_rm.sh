@@ -37,3 +37,5 @@ mkdir -p $base/grid_results/$src-$trg
 mkdir -p $base/grid_results/$src-$trg/$model_prefix
 
 python $scripts/filter_reranked_results.py --bleu-reranked-model-folder $base/bleu_reranked/$src-$trg/$model_prefix > $base/grid_results/$src-$trg/$model_prefix/result
+
+cat $base/grid_results/$src-$trg/$model_prefix/result
