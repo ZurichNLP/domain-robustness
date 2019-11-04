@@ -31,3 +31,9 @@ for weight_combination in "0.0 0.0 1.0"	"0.0 0.1 0.9"	"0.0 0.2 0.8"	"0.0 0.3 0.7
   . $scripts/reranking/rerank_multilingual+sentencepiece_generic.sh
   . $scripts/evaluation/evaluate_reranked_generic.sh
 done
+
+mkdir -p $base/grid_results
+mkdir -p $base/grid_results/$src-$trg
+mkdir -p $base/grid_results/$src-$trg/$model_prefix
+
+python $scripts/filter_reranked_results.py --bleu-reranked-model-folder $base/bleu_reranked/$src-$trg/$model_prefix > $base/grid_results/$src-$trg/$model_prefix/result
