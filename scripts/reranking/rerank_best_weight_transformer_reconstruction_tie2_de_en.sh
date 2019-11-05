@@ -20,7 +20,7 @@ in_domain=medical
 
 corpus=test
 
-weight_combination="0.1 0.1 0.8"
+weight_combination="0.1 0.7 0.2"
 
 rerank_suffix="$(echo "${weight_combination}" | tr -d '[:space:]')"
 
