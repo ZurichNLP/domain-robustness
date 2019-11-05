@@ -20,7 +20,8 @@ in_domain=law
 
 corpus=test
 
-weight_combination="0.1 0.1 0.8"
+weight_combination="0.0 1.0 0.0"
+# weight_combination="0.0 0.9 0.1"
 
 rerank_suffix="$(echo "${weight_combination}" | tr -d '[:space:]')"
 
