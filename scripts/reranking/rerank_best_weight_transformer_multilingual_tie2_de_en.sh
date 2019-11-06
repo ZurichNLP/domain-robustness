@@ -21,7 +21,8 @@ in_domain=medical
 
 corpus=test
 
-weight_combination="0.1 0.6 0.3"
+# find best with rerank_grid_search
+weight_combination="0.3 0.3 0.2"
 
 rerank_suffix="$(echo "${weight_combination}" | tr -d '[:space:]')"
 model_name="${model_prefix}_${rerank_suffix}"
