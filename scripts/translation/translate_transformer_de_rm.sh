@@ -19,4 +19,8 @@ in_domain=law
 
 domains="law blogs"
 
+beam_size=50
+batch_size=8
+
 . $scripts/translation/translate_generic.sh
+. $scripts/translation/translate_dev_generic.sh

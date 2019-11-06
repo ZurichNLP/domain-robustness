@@ -19,4 +19,8 @@ in_domain=medical
 
 domains="it koran law medical subtitles"
 
+beam_size=50
+batch_size=8
+
 . $scripts/translation/translate_multilingual_generic.sh
+. $scripts/translation/translate_multilingual_dev_generic.sh

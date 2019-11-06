@@ -1,6 +1,11 @@
+scores_dev
+grid_results
 venvs
 shared_models
 tools
+bleu_reranked
+scores
+reranked
 models
 data
 .idea
@@ -8,6 +13,7 @@ translations
 distillations
 bleu
 slurm*
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

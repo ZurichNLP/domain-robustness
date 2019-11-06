@@ -1,0 +1,28 @@
+#! /bin/bash
+
+# check if calling script has set $base
+if [ $# -eq 0 ]; then
+  script_dir=`dirname "$0"`
+  base=$script_dir/../..
+else
+  base=$1
+fi;
+
+scripts=$base/scripts
+
+src=de
+trg=rm
+
+model_name=transformer_reconstruction_tinylr
+
+in_domain=law
+
+domains="law blogs"
+
+# corpus=test
+
+#. $scripts/scoring/score_multilingual_generic.sh
+
+corpus=dev
+
+. $scripts/scoring/score_multilingual_safedev_generic.sh

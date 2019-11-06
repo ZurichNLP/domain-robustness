@@ -9,6 +9,7 @@ else
 fi;
 
 scripts=$base/scripts
+data=$base/data
 
 src=de
 trg=rm

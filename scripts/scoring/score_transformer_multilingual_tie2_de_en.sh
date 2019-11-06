@@ -19,4 +19,10 @@ in_domain=medical
 
 domains="it koran law medical subtitles"
 
-. $scripts/scoring/score_multilingual_generic.sh
+# corpus=test
+
+# . $scripts/scoring/score_multilingual_generic.sh
+
+corpus=dev
+
+. $scripts/scoring/score_multilingual_safedev_generic.sh

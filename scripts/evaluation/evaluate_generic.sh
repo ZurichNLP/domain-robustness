@@ -11,6 +11,14 @@ mkdir -p $bleu
 
 mkdir -p $bleu/$model_name
 
+if [[ $trg == 'en' ]]; then
+
+  domains="it koran law medical subtitles"
+
+else
+  domains="law blogs"
+fi;
+
 for domain in $domains; do
 
     data=$base/data/$src-$trg/$domain
