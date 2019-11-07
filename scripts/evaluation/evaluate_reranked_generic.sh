@@ -29,7 +29,7 @@ if [[ -d $reranked/$model_prefix ]]; then
       # symlink to best translation
 
       if [[ $corpus == 'test' ]]; then
-        ln -sfn $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg $bleu_reranked/$model_prefix/$corpus.reranked_best.$model_name.$domain.$trg
+        ln -sfn $reranked/$model_prefix/$rerank_suffix $reranked/$model_prefix/best
       fi
 
       echo "$bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu"
