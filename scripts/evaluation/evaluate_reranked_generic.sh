@@ -26,6 +26,10 @@ if [[ -d $reranked/$model_prefix ]]; then
 
       cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg | sacrebleu $data/$corpus.$trg > $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
 
+      # symlink to best translation
+
+      ln -s $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg $bleu_reranked/$model_prefix/$corpus.reranked_best.$model_name.$domain.$trg
+
       echo "$bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu"
       cat $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
 
