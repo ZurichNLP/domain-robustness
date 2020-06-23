@@ -3,7 +3,7 @@
 if [[ `hostname` == 'login0' ]]; then
   # S3IT
   source /net/cephfs/home/mathmu/scratch/domain-robustness/venvs/sockeye3/bin/activate
-  module load volta cuda/9.1
+  module load volta cuda/9.2
 else
   # CSD3
   source /rds/project/t2_vol4/rds-t2-cs037/mmueller/domain-robustness/venvs/sockeye3/bin/activate
@@ -25,4 +25,4 @@ else
   exit
 fi;
 
-sbatch --cpus-per-task=64 --time=24:00:00 --mem=16G --partition=skylake $1 $base
+sbatch --cpus-per-task=8 --time=24:00:00 --mem=16G --partition=generic $1 $base
