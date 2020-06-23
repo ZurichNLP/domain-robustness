@@ -136,5 +136,10 @@ If you use this code, please cite
 Müller, Mathias; Rios, Annette; Sennrich, Rico (2019): Domain Robustness in Neural Machine Translation. ArXiv Preprint: https://arxiv.org/abs/1911.03109.
 
 ```
-# ArXiv BibTeX
+@article{muller2019domain,
+  title={Domain robustness in neural machine translation},
+  author={M{\"u}ller, Mathias and Rios, Annette and Sennrich, Rico},
+  journal={arXiv preprint arXiv:1911.03109},
+  year={2019}
+}
 ```
