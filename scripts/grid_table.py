@@ -88,7 +88,7 @@ def main():
                 file_path = os.path.join(root, file)
                 dir_name = os.path.dirname(file_path)
 
-                forward, backward, lm = parse_dirname(dir_name)
+                lm, forward, backward = parse_dirname(dir_name)
                 bleu = extract_bleu_from_file(file_path)
 
                 if "dev" in file:
