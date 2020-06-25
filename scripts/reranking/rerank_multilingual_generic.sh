@@ -23,6 +23,7 @@ fi
 
 if [[ $corpus == 'oracle' ]]; then
     domains="it"
+    corpus="test"
 fi
 
 for domain in $domains; do
