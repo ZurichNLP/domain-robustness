@@ -21,6 +21,10 @@ if [[ $corpus == 'dev' ]]; then
     scores=$base/scores_dev/$src-$trg
 fi
 
+if [[ $corpus == 'oracle' ]]; then
+    domains="it"
+fi
+
 for domain in $domains; do
 
     # rerank nbest translations
