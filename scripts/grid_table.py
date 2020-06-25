@@ -32,11 +32,11 @@ def tab(r: Result) -> str:
     :param r:
     :return:
     """
-    parts = [r.lm, r.forward, r.backward, r.bleu, r.corpus, r.domain]
+    parts = [r.lm, r.forward, r.backward, str(r.bleu), r.corpus, r.domain]
     return "\t".join(parts)
 
 
-def extract_bleu_from_file(path: str) -> str:
+def extract_bleu_from_file(path: str) -> float:
     """
 
     :param path:
@@ -47,7 +47,7 @@ def extract_bleu_from_file(path: str) -> str:
         parts = line.split(" ")
         bleu = parts[2]
 
-        return bleu
+        return float(bleu)
 
 def parse_dirname(dirname: str) -> Tuple[str, str, str]:
     """
