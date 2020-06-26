@@ -1,37 +1,39 @@
 #! /bin/bash
 
-# cannot be called directly, needs to be invoked!
+# calling script needs to set:
 
-data=$base/data
-models=$base/models/$src-$trg
+# $preprocessed_lm_sub
+# $models_lm_sub
 
-mkdir -p $models
+preprocessed_lm_sub=$1
+models_lm_sub=$2
 
-mkdir -p $models/$model_name
+log_file=$models_lm_sub/log
 
 fairseq-train --task language_modeling \
-    $preprocessed_data \
-    --save-dir $models/$model_name \
+    $preprocessed_lm_sub \
+    --save-dir $models_lm_sub \
     --arch transformer_lm \
-    --max-update 286000 \
-    --max-lr 1.0 --t-mult 2 \
-    --lr-period-updates 270000 \
-    --lr-scheduler cosine \
-    --lr-shrink 0.75 \
-    --warmup-updates 16000 \
+    --share-decoder-input-output-embed \
+    --dropout 0.1 \
+    --max-update 100000 \
+    --lr-scheduler inverse_sqrt \
+    --warmup-updates 4000 \
     --warmup-init-lr 1e-07 \
-    --min-lr 1e-09 \
-    --optimizer nag \
-    --lr 0.0001 \
-    --clip-norm 0.1 \
+    --optimizer adam \
+    --adam-betas '(0.9, 0.98)' \
+    --lr 0.0005 \
+    --weight-decay 0.01 \
+    --clip-norm 0.0 \
     --criterion label_smoothed_cross_entropy \
     --max-tokens 1024 \
-    --update-freq 6 \
-    --tokens-per-sample 1024 \
+    --update-freq 16 \
+    --tokens-per-sample 512 \
     --seed 1 \
     --sample-break-mode none \
     --skip-invalid-size-inputs-valid-test \
-    --ddp-backend=no_c10d
+    --ddp-backend=no_c10d  2>&1 | tee -a $log_file
 
 # copy dict as a workaround, since fairseq looks for it in the wrong place
-cp $preprocessed_data/dict.txt $models/$model_name/
+
+cp $preprocessed_lm_sub/dict.txt $models_lm_sub/
