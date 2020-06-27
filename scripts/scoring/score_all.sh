@@ -50,12 +50,6 @@ for corpus in dev test; do
 
             scores_sub=$scores/$src-$trg/$model_name
 
-            if [[ -d $scores_sub ]]; then
-                echo "scores_sub exists: $scores_sub"
-                echo "Skipping."
-                continue
-            fi
-
             mkdir -p $scores_sub
 
             sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
@@ -74,12 +68,6 @@ for corpus in dev test; do
             translations_sub=$translations/$src-$trg/$model_name
 
             scores_sub=$scores/$src-$trg/$model_name
-
-            if [[ -d $scores_sub ]]; then
-                echo "scores_sub exists: $scores_sub"
-                echo "Skipping."
-                continue
-            fi
 
             mkdir -p $scores_sub
 
@@ -126,12 +114,6 @@ for corpus in dev test; do
 
             scores_sub=$scores/$src-$trg/$model_name
 
-            if [[ -d $scores_sub ]]; then
-                echo "scores_sub exists: $scores_sub"
-                echo "Skipping."
-                continue
-            fi
-
             mkdir -p $scores_sub
 
             sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
@@ -149,12 +131,6 @@ for corpus in dev test; do
             translations_sub=$translations/$src-$trg/$model_name
 
             scores_sub=$scores/$src-$trg/$model_name
-
-            if [[ -d $scores_sub ]]; then
-                echo "scores_sub exists: $scores_sub"
-                echo "Skipping."
-                continue
-            fi
 
             mkdir -p $scores_sub
 
