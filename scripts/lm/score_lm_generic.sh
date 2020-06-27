@@ -16,7 +16,7 @@ scripts=$5
 
 log_file=$output.log
 
-python $scripts/scoring/score_lm.py \
+python $scripts/lm/score_lm.py \
     --input $input \
     --output $output \
     --model $model_path \
