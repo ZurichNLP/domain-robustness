@@ -8,6 +8,7 @@
 # $batch_size
 # $model_path
 # $max_seq_len
+# $score_type
 
 input_src=$1
 input_trg=$2

@@ -76,7 +76,7 @@ input_src=$scores_sub/$corpus.nbest.$model_name.$domain.$src
 input_trg=$scores_sub/$corpus.nbest.$model_name.$domain.$trg
 output=$scores_sub/$corpus.tm_forward.$model_name.$domain.scores
 
-. $scripts/scoring/score_tm_generic.sh $input_src $input_trg $output $batch_size $model_path $max_seq_len
+. $scripts/scoring/score_tm_generic.sh $input_src $input_trg $output $batch_size $model_path $max_seq_len $score_type
 
 # backward scoring
 
@@ -84,7 +84,7 @@ input_src=$scores_sub/$corpus.nbest.$model_name.$domain.$trg
 input_trg=$scores_sub/$corpus.nbest.$model_name.$domain.$src
 output=$scores_sub/$corpus.tm_backward.$model_name.$domain.scores
 
-. $scripts/scoring/score_tm_generic.sh $input_src $input_trg $output $batch_size $model_path $max_seq_len
+. $scripts/scoring/score_tm_generic.sh $input_src $input_trg $output $batch_size $model_path $max_seq_len $score_type
 
 # add all scores to nbest JSON
 
