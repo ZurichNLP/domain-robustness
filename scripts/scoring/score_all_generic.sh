@@ -30,7 +30,7 @@ model_name=${12}
 venvs=$base/venvs
 scripts=$base/scripts
 
-score_type="neglogprob"
+score_type="logprob"
 
 # extract translations from JSON objects
 
@@ -68,7 +68,7 @@ source $venvs/sockeye3/bin/activate
 
 batch_size=512
 model_path=$models_sub
-max_seq_len=256
+max_seq_len=512
 
 # forward scoring
 

@@ -3,7 +3,7 @@
 base=/net/cephfs/home/mathmu/scratch/domain-robustness
 
 source $base/venvs/fairseq3/bin/activate
-module load volta cuda/10.0
+module load volta cuda/9.2
 
 data=$base/data
 scripts=$base/scripts
@@ -62,6 +62,8 @@ for corpus in dev test; do
                 $scripts/scoring/score_all_generic.sh \
                     $base $data_sub $translations_sub $scores_sub $src $trg \
                     $domain $corpus $mode $models_sub $models_lm_sub $model_name
+
+            exit # TODO: remove
         done
 
         for model_name in $pieces_models; do
