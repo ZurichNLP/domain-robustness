@@ -58,12 +58,11 @@ for corpus in dev test; do
 
             mkdir -p $scores_sub
 
-            sbatch --qos=vesta --time=12:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
+            sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
                 $scripts/scoring/score_all_generic.sh \
                     $base $data_sub $translations_sub $scores_sub $src $trg \
                     $domain $corpus $mode $models_sub $models_lm_sub $model_name
 
-            exit # TODO: remove
         done
 
         for model_name in $pieces_models; do
@@ -84,7 +83,7 @@ for corpus in dev test; do
 
             mkdir -p $scores_sub
 
-            sbatch --qos=vesta --time=12:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
+            sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
                 $scripts/scoring/score_all_generic.sh \
                     $base $data_sub $translations_sub $scores_sub $src $trg \
                     $domain $corpus $mode $models_sub $models_lm_sub $model_name
@@ -135,7 +134,7 @@ for corpus in dev test; do
 
             mkdir -p $scores_sub
 
-            sbatch --qos=vesta --time=12:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
+            sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
                 $scripts/scoring/score_all_generic.sh \
                     $base $data_sub $translations_sub $scores_sub $src $trg \
                     $domain $corpus $mode $models_sub $models_lm_sub $model_name
@@ -159,7 +158,7 @@ for corpus in dev test; do
 
             mkdir -p $scores_sub
 
-            sbatch --qos=vesta --time=12:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
+            sbatch --qos=vesta --time=01:00:00 --gres gpu:Tesla-V100-32GB:1 --cpus-per-task 1 --mem 16g \
                 $scripts/scoring/score_all_generic.sh \
                     $base $data_sub $translations_sub $scores_sub $src $trg \
                     $domain $corpus $mode $models_sub $models_lm_sub $model_name
