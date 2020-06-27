@@ -75,7 +75,8 @@ for domain in $domains; do
 
     # remove tags for LM scoring
 
-    cat $scores/$model_name/$corpus.nbest.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" > $scores/$model_name/$corpus.nbest_no_tags.$model_name.$domain.$trg
+    cat $scores/$model_name/$corpus.nbest.$model_name.$domain.$trg | python $scripts/remove_tag_from_translations.py --src-tag "<2$src>" --trg-tag "<2$trg>" \
+    > $scores/$model_name/$corpus.nbest_no_tags.$model_name.$domain.$trg
 
     # hackish, but: activate fairseq3 venv
 
@@ -83,7 +84,7 @@ for domain in $domains; do
 
     # fairseq LM scoring of target side
 
-    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm \
+    python $scripts/lm/score_lm.py --model-dir $base/models/$src-$trg/fairseq-lm \
                                 --input $scores/$model_name/$corpus.nbest_no_tags.$model_name.$domain.$trg \
                                 --output $scores/$model_name/$corpus.lm.$model_name.$domain.scores \
                                 --unk-penalty -100.0

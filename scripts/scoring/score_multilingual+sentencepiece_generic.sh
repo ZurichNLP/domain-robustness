@@ -83,7 +83,7 @@ for domain in $domains; do
 
     # fairseq LM scoring of target side
 
-    python $scripts/lm/score.py --model-dir $base/models/$src-$trg/fairseq-lm-pieces \
+    python $scripts/lm/score_lm.py --model-dir $base/models/$src-$trg/fairseq-lm-pieces \
                                 --input $scores/$model_name/$corpus.nbest_no_tags.$model_name.$domain.$trg \
                                 --output $scores/$model_name/$corpus.lm.$model_name.$domain.scores \
                                 --unk-penalty -100.0
