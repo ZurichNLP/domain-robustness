@@ -18,7 +18,6 @@ MOSES=$base/tools/moses-scripts/scripts
 
 if [[ $corpus == 'dev' ]]; then
     domains=$in_domain
-    scores=$base/scores_dev/$src-$trg
 fi
 
 if [[ $corpus == 'oracle' ]]; then

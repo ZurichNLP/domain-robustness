@@ -25,4 +25,4 @@ else
   exit
 fi;
 
-sbatch --cpus-per-task=8 --time=24:00:00 --mem=16G --partition=generic $1 $base
+sbatch --cpus-per-task=1 --time=24:00:00 --mem=16G --partition=generic $1 $base
