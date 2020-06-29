@@ -25,16 +25,13 @@ bpe_models=" transformer_multilingual_tie2 transformer_reconstruction_tie2"
 pieces_models="transformer_multilingual+sentencepiece transformer_reconstruction+sentencepiece"
 in_domain="medical"
 
-for corpus in dev test oracle; do
+for corpus in dev test; do
 
     if [[ $corpus == "dev" ]]; then
         domains=$in_domain
-    elif [[ $corpus == "test" ]]; then
-        domains="it koran law medical subtitles"
     else
-        # oracle
-        domains="it koran law subtitles"
-        corpus="test"
+        # test
+        domains="it koran law medical subtitles"
     fi
 
     for domain in $domains; do
@@ -61,7 +58,7 @@ for corpus in dev test oracle; do
                 sbatch --cpus-per-task=1 --time=00:01:00 --mem=4G --partition=generic \
                     $scripts/reranking/rerank_multilingual_generic.sh \
                         $base $src $trg $scores_sub $reranked_sub $domain $in_domain $corpus $model_name $model_prefix \
-                        $mode $weight_combination $data_sub $bleu_reranked_sub
+                        $mode "$weight_combination" $data_sub $bleu_reranked_sub
 
             done
 
@@ -82,7 +79,7 @@ for corpus in dev test oracle; do
                 sbatch --cpus-per-task=1 --time=00:01:00 --mem=4G --partition=generic \
                     $scripts/reranking/rerank_multilingual_generic.sh \
                         $base $src $trg $scores_sub $reranked_sub $domain $in_domain $corpus $model_name $model_prefix \
-                        $mode $weight_combination $data_sub $bleu_reranked_sub
+                        $mode "$weight_combination" $data_sub $bleu_reranked_sub
 
             done
         done
@@ -128,7 +125,7 @@ for corpus in dev test; do
                 sbatch --cpus-per-task=1 --time=00:01:00 --mem=4G --partition=generic \
                     $scripts/reranking/rerank_multilingual_generic.sh \
                         $base $src $trg $scores_sub $reranked_sub $domain $in_domain $corpus $model_name $model_prefix \
-                        $mode $weight_combination $data_sub $bleu_reranked_sub
+                        $mode "$weight_combination" $data_sub $bleu_reranked_sub
 
             done
 
@@ -149,7 +146,7 @@ for corpus in dev test; do
                 sbatch --cpus-per-task=1 --time=00:01:00 --mem=4G --partition=generic \
                     $scripts/reranking/rerank_multilingual_generic.sh \
                         $base $src $trg $scores_sub $reranked_sub $domain $in_domain $corpus $model_name $model_prefix \
-                        $mode $weight_combination $data_sub $bleu_reranked_sub
+                        $mode "$weight_combination" $data_sub $bleu_reranked_sub
 
             done
         done
