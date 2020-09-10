@@ -74,6 +74,11 @@ Translate the test set and dev set with a trained model as follows:
 This will translate the dev and test data with an beam size and nbest size of 50 by default,
 but also produce 1-best translations of the test set with a beam size of 10.
 
+To translate dev and test data with all trained models, run
+
+
+    ./scripts/translation/translate_all.sh
+
 ## Evaluation
 
 To evaluate with sacrebleu, run
