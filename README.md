@@ -138,6 +138,8 @@ Which will rerank the nbest lists with the weighted scores and evaluate BLEU on 
 
 If you use this code, please cite
 
+Müller, Mathias; Rios, Annette; Sennrich, Rico (2019): Domain Robustness in Neural Machine Translation. ArXiv Preprint: https://arxiv.org/abs/1911.03109.
+
 ```
 @inproceedings{muller-etal-2020-domain,
     title = "Domain Robustness in Neural Machine Translation",

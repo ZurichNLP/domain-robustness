@@ -35,7 +35,7 @@ CUDA_VERSION=92
 ## Method B: install from Github repo (uncomment if that's what you need)
 
 git clone https://github.com/ZurichNLP/sockeye $tools/sockeye
-(cd $tools/sockeye && git checkout reconstruction_niu)
+(cd $tools/sockeye && git checkout domain-robustness)
 
 # work around .git issue on lustre file systems
 mv $tools/sockeye/.git $tools/.git
@@ -65,7 +65,3 @@ git clone https://github.com/bricksdont/moses-scripts $tools/moses-scripts
 # install sentencepiece for subword regularization
 
 pip install sentencepiece
-
-# install fairseq for language models
-
-pip install fairseq
