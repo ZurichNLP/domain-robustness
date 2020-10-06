@@ -30,7 +30,7 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
     logging.debug(args)
 
-    assert numpy.sum(args.weights) == 1.0, "--weights must sum to 1.0"
+    assert numpy.isclose(numpy.sum(args.weights), 1.0), "--weights must sum to 1.0. sum is: %s" % str(numpy.sum(args.weights))
 
     if any([weight < 0.0 or weight > 1.0 for weight in args.weights]):
         logging.error("weight in --weights must be between 0.0 and 1.0")

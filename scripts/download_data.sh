@@ -13,7 +13,7 @@ subdata=$data/de-en
 
 mkdir -p $subdata
 
-wget -N https://files.ifi.uzh.ch/cl/archiv/2019/clcontra/opus_robustness_data.tar.xz -P $subdata
+wget -N https://files.ifi.uzh.ch/cl/archiv/2019/clcontra/opus_robustness_data_v2.tar.xz -P $subdata
 
 tar -xvf $subdata/opus_robustness_data.tar.xz -C $subdata
 
@@ -36,9 +36,6 @@ done
 subdata=$data/de-rm
 
 mkdir -p $subdata
-
-# you will be prompted for Github username and password
-# since this is a private repo
 
 git clone https://github.com/a-rios/RumantschCorpora $subdata
 (cd $subdata && git checkout preprocessed)

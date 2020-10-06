@@ -74,6 +74,11 @@ Translate the test set and dev set with a trained model as follows:
 This will translate the dev and test data with an beam size and nbest size of 50 by default,
 but also produce 1-best translations of the test set with a beam size of 10.
 
+To translate dev and test data with all trained models, run
+
+
+    ./scripts/translation/translate_all.sh
+
 ## Evaluation
 
 To evaluate with sacrebleu, run
@@ -136,10 +141,17 @@ If you use this code, please cite
 Müller, Mathias; Rios, Annette; Sennrich, Rico (2019): Domain Robustness in Neural Machine Translation. ArXiv Preprint: https://arxiv.org/abs/1911.03109.
 
 ```
-@article{muller2019domain,
-  title={Domain robustness in neural machine translation},
-  author={M{\"u}ller, Mathias and Rios, Annette and Sennrich, Rico},
-  journal={arXiv preprint arXiv:1911.03109},
-  year={2019}
+@inproceedings{muller-etal-2020-domain,
+    title = "Domain Robustness in Neural Machine Translation",
+    author = {M{\"u}ller, Mathias  and
+      Rios, Annette  and
+      Sennrich, Rico},
+    booktitle = "Proceedings of the 14th Conference of the Association for Machine Translation in the Americas (AMTA 2020)",
+    month = oct,
+    year = "2020",
+    address = "Virtual",
+    publisher = "Association for Machine Translation in the Americas",
+    url = "https://www.aclweb.org/anthology/2020.amta-research.14",
+    pages = "151--164",
 }
 ```

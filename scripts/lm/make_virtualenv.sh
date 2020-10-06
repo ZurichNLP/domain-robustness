@@ -22,6 +22,8 @@ mkdir -p $base/venvs
 
 # python3 needs to be installed on your system
 
+pyenv local 3.6.1
+
 virtualenv -p python3 $base/venvs/fairseq3
 
 echo "To activate your environment:"

@@ -22,12 +22,16 @@ fi;
 
 # install torch
 
-wget https://download.pytorch.org/whl/cu100/torch-1.3.0%2Bcu100-cp35-cp35m-linux_x86_64.whl
+wget https://download.pytorch.org/whl/cu100/torch-1.3.0%2Bcu100-cp36-cp36m-linux_x86_64.whl
 
-pip install torch-1.3.0+cu100-cp35-cp35m-linux_x86_64.whl
+pip install torch-1.3.0+cu100-cp36-cp36m-linux_x86_64.whl
 
-rm torch-1.3.0+cu100-cp35-cp35m-linux_x86_64.whl
+rm torch-1.3.0+cu100-cp36-cp36m-linux_x86_64.whl
 
-# fairseq for language modelling
+pip install Cython numpy
 
-pip install fairseq
+# install fairseq for language models
+
+# specific version newer than latest release 0.9.0
+
+pip install git+git://github.com/pytorch/fairseq.git@c1848270723fa4be7cfb0bc92a5d14546a80d879

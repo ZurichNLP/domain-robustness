@@ -10,7 +10,7 @@ fi;
 
 echo "the potentially medically important signs and symptoms" >> infile
 
-python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input infile --output outfile
+python $base/scripts/lm/score_lm.py --model $base/lm_models/de-en/bpe --input infile --output outfile
 cat outfile
 rm outfile
 rm infile
@@ -19,7 +19,7 @@ rm infile
 
 echo "the potentially medically Ver@@ Ukd@ signs and symptoms" >> infile
 
-python $base/scripts/lm/score.py --model $base/models/de-en/fairseq-lm --input infile --output outfile --unk-penalty -100.0
+python $base/scripts/lm/score_lm.py --model $base/lm_models/de-en/bpe --input infile --output outfile
 cat outfile
 rm outfile
 rm infile

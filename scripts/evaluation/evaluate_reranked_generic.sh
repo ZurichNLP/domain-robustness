@@ -1,38 +1,27 @@
 #! /bin/bash
 
-data=$base/data
-reranked=$base/reranked/$src-$trg
+# calling script needs to set:
+# $data_sub
+# $bleu_reranked_sub
+# $reranked_sub
+# $model_name
+# $domain
+# $corpus
+# $trg
 
-if [[ -d $reranked/$model_prefix ]]; then
+data_sub=$1
+bleu_reranked_sub=$2
+reranked_sub=$3
+model_name=$4
+domain=$5
+corpus=$6
+trg=$7
 
-  bleu_reranked=$base/bleu_reranked
-  mkdir -p $bleu_reranked
+# compute case-sensitive BLEU on detokenized data
 
-  bleu_reranked=$base/bleu_reranked/$src-$trg
-  mkdir -p $bleu_reranked
+cat $reranked_sub/$corpus.reranked_best.$model_name.$domain.$trg | \
+    sacrebleu $data_sub/$corpus.$trg > \
+        $bleu_reranked_sub/$corpus.reranked_best.$model_name.$domain.bleu
 
-  mkdir -p $bleu_reranked/$model_prefix
-  mkdir -p $bleu_reranked/$model_prefix/$rerank_suffix
-
-  if [[ $corpus == 'dev' ]]; then
-    domains=$in_domain
-  fi
-
-  for domain in $domains; do
-
-      data=$base/data/$src-$trg/$domain
-
-      # compute case-sensitive BLEU on detokenized data
-
-      cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.$trg | sacrebleu $data/$corpus.$trg > $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
-
-      echo "$bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu"
-      cat $bleu_reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.$model_name.$domain.bleu
-
-  done
-
-else
-
-  echo "Reranked best dev translations (in $reranked/$model_prefix) do not seem to exist."
-
-fi;
+echo "$bleu_reranked_sub/$corpus.reranked_best.$model_name.$domain.bleu"
+cat $bleu_reranked_sub/$corpus.reranked_best.$model_name.$domain.bleu

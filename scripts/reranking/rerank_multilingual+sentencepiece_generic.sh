@@ -18,7 +18,11 @@ MOSES=$base/tools/moses-scripts/scripts
 
 if [[ $corpus == 'dev' ]]; then
     domains=$in_domain
-    scores=$base/scores_dev/$src-$trg
+fi
+
+if [[ $corpus == 'oracle' ]]; then
+    domains="it"
+    corpus="test"
 fi
 
 for domain in $domains; do
@@ -40,7 +44,9 @@ for domain in $domains; do
 
     # undo pieces
 
-    cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.pieces.$model_name.$domain.$trg | python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.truecased.$model_name.$domain.$trg
+    cat $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.pieces.$model_name.$domain.$trg | \
+    python $scripts/remove_sentencepiece.py --model $base/shared_models/$src$trg.$in_domain.sentencepiece.model > \
+    $reranked/$model_prefix/$rerank_suffix/$corpus.reranked_best.truecased.$model_name.$domain.$trg
 
     # undo truecasing
 

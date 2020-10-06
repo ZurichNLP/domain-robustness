@@ -8,4 +8,4 @@ else
   base=$1
 fi;
 
-python $base/scripts/lm/sample.py --model $base/models/de-en/fairseq-lm --prefix "the potentially medically important signs and symptoms" --verbose
+python $base/scripts/lm/sample.py --model $base/lm_models/de-en/bpe --prefix "the potentially medically important signs and symptoms" --verbose
