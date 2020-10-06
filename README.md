@@ -139,5 +139,17 @@ Which will rerank the nbest lists with the weighted scores and evaluate BLEU on 
 If you use this code, please cite
 
 ```
-# ArXiv BibTeX
+@inproceedings{muller-etal-2020-domain,
+    title = "Domain Robustness in Neural Machine Translation",
+    author = {M{\"u}ller, Mathias  and
+      Rios, Annette  and
+      Sennrich, Rico},
+    booktitle = "Proceedings of the 14th Conference of the Association for Machine Translation in the Americas (AMTA 2020)",
+    month = oct,
+    year = "2020",
+    address = "Virtual",
+    publisher = "Association for Machine Translation in the Americas",
+    url = "https://www.aclweb.org/anthology/2020.amta-research.14",
+    pages = "151--164",
+}
 ```
