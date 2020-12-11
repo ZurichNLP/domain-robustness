@@ -15,7 +15,7 @@ mkdir -p $subdata
 
 wget -N https://files.ifi.uzh.ch/cl/archiv/2019/clcontra/opus_robustness_data_v2.tar.xz -P $subdata
 
-tar -xvf $subdata/opus_robustness_data.tar.xz -C $subdata
+tar -xvf $subdata/opus_robustness_data_v2.tar.xz -C $subdata
 
 mv $subdata/opus_robustness_data/* $subdata/
 
